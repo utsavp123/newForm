@@ -1,3 +1,4 @@
+
 jQuery(function ($) {
 
   $('#tags input').on('focusout', function () {
@@ -17,7 +18,6 @@ jQuery(function ($) {
 });
 
 function myChange(e) {
-  e.preventDefault();
   var Fname = document.getElementById('fname');
   var Mname = document.getElementById('mname');
   var Lname = document.getElementById('lname');
@@ -143,8 +143,47 @@ function myFunction() {
 
   }
 
-  if(!Fname.value || Password.value != conPassword.value || !conPassword.value||Password.value.length < 8||!Password.value||!Emailid.value||!Username.value||(!Pincode.value || Pincode.value.length != 6) ||!City.value||!State.value||!Country.value||!AddressTwo.value||!AddressOne.value||(Male == false && Female == false)||!Bdate.value||!Lname.value||!Mname.value){
+  if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Username.value || (!Pincode.value || Pincode.value.length != 6) || !City.value || !State.value || !Country.value || !AddressTwo.value || !AddressOne.value || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value) {
     return false;
+  } else {
+    abc = []
+    var a = document.getElementById('playGame').checked;
+    var b = document.getElementById('exercise').checked;
+    var c = document.getElementById('reading1').checked;
+    if (a == true) {
+      abc.push(document.getElementById('playGame').value);
+    }
+    if (b == true) {
+      abc.push(document.getElementById('exercise').value);
+    }
+    if (c == true) {
+      abc.push(document.getElementById('reading1').value);
+    }
+    record = JSON.parse(localStorage.getItem("old-users")) ? JSON.parse(localStorage.getItem("old-users")) : [];
+    record.push({
+      "Fname": Fname.value,
+      "Mname": Mname.value,
+      "Lname": Lname.value,
+      "DOB": Bdate.value,
+      "Gender": document.forms['myForm']['gender'].value,
+      "Address1": AddressOne.value,
+      "Address2": AddressTwo.value,
+      "Country": Country.value,
+      "State": State.value,
+      "City": City.value,
+      "PinCode": Pincode.value,
+      "Username": Username.value,
+      "EmaiId": Emailid.value,
+      "Password": Password.value,
+      "ConfirmPassword": conPassword.value,
+      "Hobby": abc,
+    })
+    localStorage.setItem("old-users", JSON.stringify(record));
+
+
+
+
+
   }
 
 }
@@ -174,16 +213,51 @@ function confPassIcon() {
   }
 }
 
-function allCheckBoxClick(){
-  let  allCheckBox= document.getElementById('allCheckBox').checked;
-  if(allCheckBox==true){
-    document.getElementById('playGame').checked= true;
-    document.getElementById('exercise').checked= true;
-    document.getElementById('reading1').checked= true;
-  }else{
-    document.getElementById('playGame').checked= false;
-    document.getElementById('exercise').checked= false;
-    document.getElementById('reading1').checked= false;
+function allCheckBoxClick() {
+  let allCheckBox = document.getElementById('allCheckBox').checked;
+  if (allCheckBox == true) {
+    document.getElementById('playGame').checked = true;
+    document.getElementById('exercise').checked = true;
+    document.getElementById('reading1').checked = true;
+  } else {
+    document.getElementById('playGame').checked = false;
+    document.getElementById('exercise').checked = false;
+    document.getElementById('reading1').checked = false;
   }
 }
+
+function savePlayer() {
+  let getPlayerScore = localStorage.getItem("old-users");
+  let text = document.getElementById("topScores");
+  let n = JSON.parse(getPlayerScore).length;
+  console.log(n);
+  // for(let i = 0; i < n; i++){
+    
+  //   console.log(JSON.parse(getPlayerScore)[i].Fname);
+  //     text += "<tr>";
+  //     text += "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td>";
+  //     text += "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td></tr>";
+  // }
+  var tbody = document.getElementById('tbody');
+  for (var i = 0; i < n; i++) {
+    var tr = "<tr>";
+    tr +=  "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td>";
+    tr +=  "<td>" + JSON.parse(getPlayerScore)[i].Mname + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Lname + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].DOB + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Gender + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Address1 + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Address2 + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Country + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].State + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].City + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].PinCode + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Username + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].EmaiId + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Password + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Hobby + "</td></tr>";
+    tbody.innerHTML += tr;
+  }
+}
+
 

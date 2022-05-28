@@ -12,11 +12,28 @@
   border: 1px solid rgb(209, 146, 29);
   height: auto;
 }
+
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgb(33, 37, 41);
+  background-color: rgb(190 169 255 / 73%);
+  background-clip: padding-box;
+  border: 1px solid rgb(206, 212, 218);
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
 .img{
-  border-radius: 15px;
+  border-radius: 75px;
   background: url("about-3.jpeg") no-repeat center/cover;
   /* background-size: 100% 100%; */
-  /* background-size: contain; */
+  /* background-size:100; */
   /* background-position:left; */
 }
 
@@ -52,6 +69,17 @@ label.addLable {
   padding-top: 1.1rem;
   padding-bottom: .625rem;
   font-size: .9rem;
+}
+.container {
+  width: 100%;
+  padding-right: var(--bs-gutter-x,.0rem);
+  padding-left: var(--bs-gutter-x,.0rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+label {
+  color: white;
 }
 
 .row>* {
@@ -93,7 +121,7 @@ textarea{
 
 #tags {
   float: left;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   padding: 4px;
   font-family: Arial;
 }
@@ -134,11 +162,15 @@ textarea{
 .pin-c>label.m-3 {
   font-size: 1rem;
 }
-body{
+/* body{
       background: url("about-1.jpg")no-repeat center/cover;
-  }
+  } */
 .disp{
-      background-image: url("White-Bg.jpg");
+
+  background: -webkit-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -webkit-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+  background: -o-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -o-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+  background: -moz-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -moz-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+  background: linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);;
   }
 .form-floating>label {
   color: black;
@@ -152,7 +184,7 @@ body{
   /* padding: 2 px; */
 } 
 
-@media (min-width:700px) {
+@media (min-width:1000px) {
   .container.my-4 {
     max-width: 70%;
     /* min-width: 100%; */
@@ -164,7 +196,7 @@ body{
     position: absolute;
   }
 }
-@media (max-width:1000px) {
+@media (max-width:999px) {
   .img{
     display: none;
   }
@@ -180,4 +212,24 @@ span {
   color: red;
   font-size: .8rem;
   display: none;
+}
+
+
+/* ---------------------- */
+input#pinCode {
+  background-color: white;
+}
+
+span {
+  /* margin: 4px; */
+  background-color: #00000036;
+  font-weight: 600;
+  color: red;
+  border-radius: 3px;
+  font-size: .8rem;
+  display: none;
+  /* text-align: center; */
+}
+#address>.form-floating>.form-control{
+  background-color: transparent !important;
 }
