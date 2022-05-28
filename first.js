@@ -26,6 +26,170 @@ function myChange(e) {
   Lname.value = Lname.value.toUpperCase();
 }
 
+
+function passwordIcon() {
+
+  const togglePassword = document.querySelector("#togglePassword");
+  const x = document.getElementById('password');
+  if (x.type === "password") {
+    x.type = "text";
+    togglePassword.classList.toggle("bi-eye");
+  } else {
+    x.type = "password";
+    togglePassword.classList.toggle("bi-eye");
+  }
+
+}
+function confPassIcon() {
+  const togglePassword2 = document.querySelector("#togglePassword2");
+  const x = document.getElementById('confPass');
+  if (x.type === "password") {
+    x.type = "text";
+    togglePassword2.classList.toggle("bi-eye");
+  } else {
+    x.type = "password";
+    togglePassword2.classList.toggle("bi-eye");
+  }
+}
+
+function allCheckBoxClick() {
+  let allCheckBox = document.getElementById('allCheckBox').checked;
+  if (allCheckBox == true) {
+    document.getElementById('playGame').checked = true;
+    document.getElementById('exercise').checked = true;
+    document.getElementById('reading1').checked = true;
+  } else {
+    document.getElementById('playGame').checked = false;
+    document.getElementById('exercise').checked = false;
+    document.getElementById('reading1').checked = false;
+  }
+}
+let numberOfitem;
+function savePlayer() {
+  let getPlayerScore = localStorage.getItem("old-users");
+  let text = document.getElementById("topScores");
+  let n = JSON.parse(getPlayerScore).length;
+  var tbody = document.getElementById('tbody');
+  for (var i = 0; i < n; i++) {
+    var tr = "<tr id='row" + i + "'>";
+    tr += "<td>" + (i + 1) + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Mname + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Lname + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].DOB + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Gender + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Address1 + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Country + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].State + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].City + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].PinCode + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Username + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].EmaiId + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Password + "</td>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Hobby + "</td>";
+    tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ")' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
+
+    tbody.innerHTML += tr;
+
+  }
+
+}
+
+function myFunctionDelete(e) {
+  let getPlayerScore = localStorage.getItem("old-users");
+  let a1 = JSON.parse(getPlayerScore);
+  a1.splice(e, 1);
+  localStorage.setItem("old-users", JSON.stringify(a1));
+  document.location.reload(true);
+}
+
+function myFunctionUpdate(e) {
+
+  let Fname = document.getElementById('fname');
+  let Mname = document.getElementById('mname');
+  let Lname = document.getElementById('lname');
+  let Bdate = document.getElementById('dob');
+  let Male = document.getElementById('male').checked;
+  let Female = document.getElementById('female').checked;
+  let AddressOne = document.getElementById('addressOne');
+  let AddressTwo = document.getElementById('addressTwo');
+  let Country = document.getElementById('country');
+  let State = document.getElementById('state');
+  let City = document.getElementById('city');
+  let Pincode = document.getElementById('pinCode');
+  let Username = document.getElementById('userName');
+  let Emailid = document.getElementById('emaiId');
+  let Password = document.getElementById('password');
+  let conPassword = document.getElementById('confPass');
+
+  let getPlayerScore = localStorage.getItem("old-users");
+
+  // localStorage.setItem("old-users", JSON.stringify(a1));
+  // document.location.reload(true);
+  console.log(JSON.parse(getPlayerScore)[e].Fname);
+
+  Fname.value = JSON.parse(getPlayerScore)[e].Fname;
+  Mname.value = JSON.parse(getPlayerScore)[e].Mname;
+  Lname.value = JSON.parse(getPlayerScore)[e].Lname;
+  Bdate.value = JSON.parse(getPlayerScore)[e].DOB;
+  gen = JSON.parse(getPlayerScore)[e].Gender;
+  if (gen == 'Male') {
+    document.getElementById('male').checked = true;
+  } else {
+    document.getElementById('female').checked = true;
+  }
+  AddressOne.value = JSON.parse(getPlayerScore)[e].Address1;
+  Country.value = JSON.parse(getPlayerScore)[e].Country;
+  State.value = JSON.parse(getPlayerScore)[e].State;
+  City.value = JSON.parse(getPlayerScore)[e].City;
+  Pincode.value = JSON.parse(getPlayerScore)[e].PinCode;
+  Username.value = JSON.parse(getPlayerScore)[e].Username;
+  Emailid.value = JSON.parse(getPlayerScore)[e].EmaiId;
+  Password.value = JSON.parse(getPlayerScore)[e].Password;
+  conPassword.value = JSON.parse(getPlayerScore)[e].Password;
+  //  .value = JSON.parse(getPlayerScore)[e].Hobby 
+  var a = document.getElementById('playGame');
+  var b = document.getElementById('exercise');
+  var c = document.getElementById('reading1');
+
+  console.log(JSON.parse(getPlayerScore)[e].Hobby[2]);
+  if (JSON.parse(getPlayerScore)[e].Hobby[0] == "Play Game") {
+    document.getElementById('playGame').checked = true;
+  }
+  if (JSON.parse(getPlayerScore)[e].Hobby[1] == "Exercise") {
+    document.getElementById('exercise').checked = true;
+  }
+  if (JSON.parse(getPlayerScore)[e].Hobby[2] == "Reading") {
+    document.getElementById('reading1').checked = true;
+  }
+  numberOfitem = e;
+
+
+
+}
+
+$(document).ready(function () {
+  $("#modalb").click(function () {
+    valueNone();
+    $("#event").click(function () {
+      a1 = myFunction();
+      return a1;
+    });
+  });
+  $(".update1").click(function () {
+    console.log("helo");
+    $("#event").click(function () {
+      a1 = myFunction();
+      if (a1 == false) {
+          return false;
+      }
+      else{
+        newval();
+      }
+    });
+  });
+});
+
 function myFunction() {
   let i;
   let Fname = document.getElementById('fname');
@@ -179,91 +343,27 @@ function myFunction() {
       "Hobby": abc,
     })
     localStorage.setItem("old-users", JSON.stringify(record));
-
-
-
-
-
-  }
-
-}
-
-function passwordIcon() {
-
-  const togglePassword = document.querySelector("#togglePassword");
-  const x = document.getElementById('password');
-  if (x.type === "password") {
-    x.type = "text";
-    togglePassword.classList.toggle("bi-eye");
-  } else {
-    x.type = "password";
-    togglePassword.classList.toggle("bi-eye");
-  }
-
-}
-function confPassIcon() {
-  const togglePassword2 = document.querySelector("#togglePassword2");
-  const x = document.getElementById('confPass');
-  if (x.type === "password") {
-    x.type = "text";
-    togglePassword2.classList.toggle("bi-eye");
-  } else {
-    x.type = "password";
-    togglePassword2.classList.toggle("bi-eye");
+    return true;
   }
 }
 
-function allCheckBoxClick() {
-  let allCheckBox = document.getElementById('allCheckBox').checked;
-  if (allCheckBox == true) {
-    document.getElementById('playGame').checked = true;
-    document.getElementById('exercise').checked = true;
-    document.getElementById('reading1').checked = true;
-  } else {
-    document.getElementById('playGame').checked = false;
-    document.getElementById('exercise').checked = false;
-    document.getElementById('reading1').checked = false;
-  }
-}
 
-function savePlayer() {
+function newval() {
+
   let getPlayerScore = localStorage.getItem("old-users");
-  let text = document.getElementById("topScores");
   let n = JSON.parse(getPlayerScore).length;
-  var tbody = document.getElementById('tbody');
-  for (var i = 0; i < n; i++) {
-    var tr = "<tr>";
-    tr +=  "<td>" + (i+1) + "</td>";
-    tr +=  "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td>";
-    tr +=  "<td>" + JSON.parse(getPlayerScore)[i].Mname + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Lname + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].DOB + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Gender + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Address1 + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Address2 + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Country + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].State + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].City + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].PinCode + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Username + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].EmaiId + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Password + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Hobby + "</td>";
-    tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionx("+(i)+")' style='font-size:20px;color:red'></i> </td></tr>";
-    tbody.innerHTML += tr;
 
-  }
-  
-}
-
-function myFunctionx(e){
-  console.log('fff');
-  let getPlayerScore = localStorage.getItem("old-users");
   let a1 = JSON.parse(getPlayerScore);
-  a1.splice(e,1);
+  z1=JSON.parse(getPlayerScore)[n-1];
+  console.log(z1);
+  a1.splice(numberOfitem, 1,z1 );
+  console.log(a1);
+  n = JSON.parse(getPlayerScore).length;
+  console.log(n);
+  a1.pop();
   console.log(a1);
   localStorage.setItem("old-users", JSON.stringify(a1));
-  document.location.reload(true);
+
+
+
 }
-
-
