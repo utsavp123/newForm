@@ -170,7 +170,7 @@ function myFunctionUpdate(e) {
 
 $(document).ready(function () {
   $("#modalb").click(function () {
-    valueNone();
+  
     $("#event").click(function () {
       a1 = myFunction();
       return a1;
