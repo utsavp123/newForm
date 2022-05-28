@@ -338,6 +338,7 @@ function myFunction() {
       "Hobby": abc,
     })
     localStorage.setItem("old-users", JSON.stringify(record));
+    return true;
     
   }
 }
