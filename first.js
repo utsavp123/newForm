@@ -233,12 +233,7 @@ function myFunction() {
   } else {
     document.getElementById('validAddressOne').style.display = 'none';
   }
-  let AddressTwo = document.getElementById('addressTwo');
-  if (!AddressTwo.value) {
-    document.getElementById('validAddressTwo').style.display = 'block';
-  } else {
-    document.getElementById('validAddressTwo').style.display = 'none';
-  }
+
 
   let Country = document.getElementById('country');
   if (!Country.value) {
@@ -307,7 +302,7 @@ function myFunction() {
 
   }
 
-  if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Username.value || (!Pincode.value || Pincode.value.length != 6) || !City.value || !State.value || !Country.value || !AddressTwo.value || !AddressOne.value || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value) {
+  if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Username.value || (!Pincode.value || Pincode.value.length != 6) || !City.value || !State.value || !Country.value || !AddressOne.value || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value) {
     return false;
   } else {
     abc = []
