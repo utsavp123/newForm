@@ -112,7 +112,7 @@ function myFunctionUpdate(e) {
   let Male = document.getElementById('male').checked;
   let Female = document.getElementById('female').checked;
   let AddressOne = document.getElementById('addressOne');
-  let AddressTwo = document.getElementById('addressTwo');
+
   let Country = document.getElementById('country');
   let State = document.getElementById('state');
   let City = document.getElementById('city');
@@ -326,7 +326,7 @@ function myFunction() {
       "DOB": Bdate.value,
       "Gender": document.forms['myForm']['gender'].value,
       "Address1": AddressOne.value,
-      "Address2": AddressTwo.value,
+    
       "Country": Country.value,
       "State": State.value,
       "City": City.value,
@@ -338,7 +338,7 @@ function myFunction() {
       "Hobby": abc,
     })
     localStorage.setItem("old-users", JSON.stringify(record));
-    return true;
+    
   }
 }
 
