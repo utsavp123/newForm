@@ -230,17 +230,10 @@ function savePlayer() {
   let getPlayerScore = localStorage.getItem("old-users");
   let text = document.getElementById("topScores");
   let n = JSON.parse(getPlayerScore).length;
-  console.log(n);
-  // for(let i = 0; i < n; i++){
-    
-  //   console.log(JSON.parse(getPlayerScore)[i].Fname);
-  //     text += "<tr>";
-  //     text += "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td>";
-  //     text += "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td></tr>";
-  // }
   var tbody = document.getElementById('tbody');
   for (var i = 0; i < n; i++) {
     var tr = "<tr>";
+    tr +=  "<td>" + (i+1) + "</td>";
     tr +=  "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td>";
     tr +=  "<td>" + JSON.parse(getPlayerScore)[i].Mname + "</td>";
     tr += "<td>" + JSON.parse(getPlayerScore)[i].Lname + "</td>";
@@ -255,9 +248,22 @@ function savePlayer() {
     tr += "<td>" + JSON.parse(getPlayerScore)[i].Username + "</td>";
     tr += "<td>" + JSON.parse(getPlayerScore)[i].EmaiId + "</td>";
     tr += "<td>" + JSON.parse(getPlayerScore)[i].Password + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Hobby + "</td></tr>";
+    tr += "<td>" + JSON.parse(getPlayerScore)[i].Hobby + "</td>";
+    tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionx("+(i)+")' style='font-size:20px;color:red'></i> </td></tr>";
     tbody.innerHTML += tr;
+
   }
+  
+}
+
+function myFunctionx(e){
+  console.log('fff');
+  let getPlayerScore = localStorage.getItem("old-users");
+  let a1 = JSON.parse(getPlayerScore);
+  a1.splice(e,1);
+  console.log(a1);
+  localStorage.setItem("old-users", JSON.stringify(a1));
+  document.location.reload(true);
 }
 
 
