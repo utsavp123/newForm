@@ -16,14 +16,39 @@
 
 <body>
     <div class="container mt-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        <button type="button" id="modalb"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
             Open modal
         </button>
+        <div class="table-responsive text-nowrap">
+            <table class="table mt-3 table-striped table-bordered table-hover" id="topScores">
+                <thead class="table-primary">
+                    <tr>
+                        <th>No.</th>
+                        <th>Firstname</th>
+                        <th>Middlename</th>
+                        <th>Lastname</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Add-1</th>
+                        <th>Country</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>PinCode</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Hobby</th>
+                        <th>Action</th>
+                    </tr>   
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
     </div>
 
     <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -588,7 +613,7 @@
                                         </div>
                                         <div class="row text-center ">
                                             <div class="col-6   ">
-                                                <button type="submit" onclick="return myFunction() "
+                                                <button type="submit" id="event" 
                                                     class="btn px-5 btn-primary">Save</button>
                                             </div>
                                             <div class="col-6   ">
@@ -611,32 +636,7 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table mt-3 table-striped table-bordered table-hover" id="topScores">
-            <thead class="table-primary">
-                <tr>
-                    <th>No.</th>
-                    <th>Firstname</th>
-                    <th>Middlename</th>
-                    <th>Lastname</th>
-                    <th>DOB</th>
-                    <th>Gender</th>
-                    <th>Add-1</th>
-                    <th>Add-2</th>
-                    <th>Country</th>
-                    <th>State</th>
-                    <th>City</th>
-                    <th>PinCode</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Hobby</th>
-                    <th>Action</th>
-                </tr>   
-            </thead>
-            <tbody id="tbody"></tbody>
-        </table>
-    </div>
+    
     <script>
      savePlayer();
     </script>
