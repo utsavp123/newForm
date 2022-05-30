@@ -250,3 +250,10 @@ span {
 #address>.form-floating>.form-control{
   background-color: transparent !important;
 }
+
+.pagination {
+  justify-content: center;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+}
