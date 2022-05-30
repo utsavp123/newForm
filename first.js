@@ -61,17 +61,26 @@ function allCheckBoxClick() {
 }
 let numberOfitem;
 function savePlayer() {
+  document.getElementById("tbody").innerHTML = "";
+  document.getElementById("pages").innerHTML = "";
+
   let getPlayerScore = localStorage.getItem("old-users");
   let text = document.getElementById("topScores");
   let n = JSON.parse(getPlayerScore).length;
   var tbody = document.getElementById('tbody');
   var pages = document.getElementById('pages');
+
+  let pagesNumberOfData = document.getElementById('pagesNumberOfData');
+  console.log(pagesNumberOfData.value);
+
+
   var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
-  for (var i = 0; i < n / 5; i++) {
+  for (var i = 0; i < n / pagesNumberOfData.value; i++) {
     pageNumber += '<li class="page-item"><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
   }
   pageNumber += '<li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>';
   pages.innerHTML += pageNumber;
+  
   $(document).ready(function () {
     var curr = 'pageNo1';
     $("a").click(function () {
@@ -85,7 +94,7 @@ function savePlayer() {
 
       } else if (this.id == "next") {
         var str = $("#" + curr).text();
-        if (str != parseInt(n/5)+1) {
+        if (str != parseInt(n/pagesNumberOfData.value)+1) {
           $("." + curr).hide();
           $("." + 'pageNo' + (1 + Number(str))).show();
           console.log(str + 1);
@@ -107,8 +116,8 @@ function savePlayer() {
   });
 
   var i = 0;
-  for (var j = 0; j < n / 5; j++) {
-    for (var k = 0; k < 5; k++) {
+  for (var j = 0; j < n / pagesNumberOfData.value; j++) {
+    for (var k = 0; k < pagesNumberOfData.value; k++) {
       var tr = "<tr class='pageNo" + (j + 1) + "'";
       var data = JSON.parse(localStorage.getItem("old-users"));
       if (i < n) {
@@ -390,3 +399,6 @@ function newval() {
   localStorage.setItem("old-users", JSON.stringify(a1));
   document.location.reload(true);
 }
+
+
+
