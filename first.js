@@ -1,6 +1,4 @@
-
 jQuery(function ($) {
-
   $('#tags input').on('focusout', function () {
     var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
     if (txt) $(this).before('<span class="tag">' + txt + '</span>');
@@ -26,9 +24,7 @@ function myChange(e) {
   Lname.value = Lname.value.toUpperCase();
 }
 
-
 function passwordIcon() {
-
   const togglePassword = document.querySelector("#togglePassword");
   const x = document.getElementById('password');
   if (x.type === "password") {
@@ -38,7 +34,6 @@ function passwordIcon() {
     x.type = "password";
     togglePassword.classList.toggle("bi-eye");
   }
-
 }
 function confPassIcon() {
   const togglePassword2 = document.querySelector("#togglePassword2");
@@ -70,39 +65,93 @@ function savePlayer() {
   let text = document.getElementById("topScores");
   let n = JSON.parse(getPlayerScore).length;
   var tbody = document.getElementById('tbody');
-  for (var i = 0; i < n; i++) {
-    var tr = "<tr id='row" + i + "'>";
-    tr += "<td>" + (i + 1) + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Fname + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Mname + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Lname + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].DOB + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Gender + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Address1 + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Country + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].State + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].City + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].PinCode + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Username + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].EmaiId + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Password + "</td>";
-    tr += "<td>" + JSON.parse(getPlayerScore)[i].Hobby + "</td>";
-    tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ")' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
-
-    tbody.innerHTML += tr;
-
+  var pages = document.getElementById('pages');
+  var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
+  for (var i = 0; i < n / 5; i++) {
+    pageNumber += '<li class="page-item"><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
   }
+  pageNumber += '<li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>';
+  pages.innerHTML += pageNumber;
+  $(document).ready(function () {
+    var curr = 'pageNo1';
+    $("a").click(function () {
+      if (this.id == "pre") {
+        var str = $("#" + curr).text();
+        if (str != 1) {
+          $("." + curr).hide();
+          $("." + 'pageNo' + (str - 1)).show();
+          curr = 'pageNo' + (str - 1);
+        }
 
+      } else if (this.id == "next") {
+        var str = $("#" + curr).text();
+        if (str != parseInt(n/5)+1) {
+          $("." + curr).hide();
+          $("." + 'pageNo' + (1 + Number(str))).show();
+          console.log(str + 1);
+          curr = 'pageNo' + (1 + Number(str));
+        }
+      }
+      else {
+        $("." + curr).hide();
+        $("." + this.id).show();
+        curr = this.id;
+      }
+    });
+  });
+  $(document).ready(function () {
+    $('li').click(function () {
+      $('li.page-item.active').removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+
+  var i = 0;
+  for (var j = 0; j < n / 5; j++) {
+    for (var k = 0; k < 5; k++) {
+      var tr = "<tr class='pageNo" + (j + 1) + "'";
+      var data = JSON.parse(localStorage.getItem("old-users"));
+      if (i < n) {
+        if (j == 0) {
+          tr += "<tr class='pageNo" + (j + 1) + "'>";
+        } else {
+          tr += "<tr class='pageNo" + (j + 1) + "'style='display: none;'>";
+        }
+        tr += "<td>" + (i + 1) + "</td>";
+        tr += "<td>" + data[i].Fname + "</td>";
+        tr += "<td>" + data[i].Mname + "</td>";
+        tr += "<td>" + data[i].Lname + "</td>";
+        tr += "<td>" + data[i].DOB + "</td>";
+        tr += "<td>" + data[i].Gender + "</td>";
+        tr += "<td>" + data[i].Address1 + "</td>";
+        tr += "<td>" + data[i].Country + "</td>";
+        tr += "<td>" + data[i].State + "</td>";
+        tr += "<td>" + data[i].City + "</td>";
+        tr += "<td>" + data[i].PinCode + "</td>";
+        tr += "<td>" + data[i].Username + "</td>";
+        tr += "<td>" + data[i].EmaiId + "</td>";
+        tr += "<td>" + data[i].Password + "</td>";
+        tr += "<td>" + data[i].Hobby + "</td>";
+        tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ")' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
+        tbody.innerHTML += tr;
+        i++;
+      }
+    }
+  }
 }
 
 function myFunctionDelete(e) {
-  let getPlayerScore = localStorage.getItem("old-users");
-  let a1 = JSON.parse(getPlayerScore);
-  a1.splice(e, 1);
-  localStorage.setItem("old-users", JSON.stringify(a1));
-  document.location.reload(true);
-}
+  if (confirm("Press a button!") == true) {
+    let getPlayerScore = localStorage.getItem("old-users");
+    let a1 = JSON.parse(getPlayerScore);
+    a1.splice(e, 1);
+    localStorage.setItem("old-users", JSON.stringify(a1));
+    document.location.reload(true);
+  } else {
+    return;
+  }
 
+}
 function myFunctionUpdate(e) {
 
   let Fname = document.getElementById('fname');
@@ -112,7 +161,6 @@ function myFunctionUpdate(e) {
   let Male = document.getElementById('male').checked;
   let Female = document.getElementById('female').checked;
   let AddressOne = document.getElementById('addressOne');
-
   let Country = document.getElementById('country');
   let State = document.getElementById('state');
   let City = document.getElementById('city');
@@ -122,58 +170,58 @@ function myFunctionUpdate(e) {
   let Password = document.getElementById('password');
   let conPassword = document.getElementById('confPass');
 
-  let getPlayerScore = localStorage.getItem("old-users");
+  let getPlayerScore = JSON.parse(localStorage.getItem("old-users"));
 
   // localStorage.setItem("old-users", JSON.stringify(a1));
   // document.location.reload(true);
-  console.log(JSON.parse(getPlayerScore)[e].Fname);
 
-  Fname.value = JSON.parse(getPlayerScore)[e].Fname;
-  Mname.value = JSON.parse(getPlayerScore)[e].Mname;
-  Lname.value = JSON.parse(getPlayerScore)[e].Lname;
-  Bdate.value = JSON.parse(getPlayerScore)[e].DOB;
-  gen = JSON.parse(getPlayerScore)[e].Gender;
+  Fname.value = getPlayerScore[e].Fname;
+  Mname.value = getPlayerScore[e].Mname;
+  Lname.value = getPlayerScore[e].Lname;
+  Bdate.value = getPlayerScore[e].DOB;
+  gen = getPlayerScore[e].Gender;
   if (gen == 'Male') {
     document.getElementById('male').checked = true;
   } else {
     document.getElementById('female').checked = true;
   }
-  AddressOne.value = JSON.parse(getPlayerScore)[e].Address1;
-  Country.value = JSON.parse(getPlayerScore)[e].Country;
-  State.value = JSON.parse(getPlayerScore)[e].State;
-  City.value = JSON.parse(getPlayerScore)[e].City;
-  Pincode.value = JSON.parse(getPlayerScore)[e].PinCode;
-  Username.value = JSON.parse(getPlayerScore)[e].Username;
-  Emailid.value = JSON.parse(getPlayerScore)[e].EmaiId;
-  Password.value = JSON.parse(getPlayerScore)[e].Password;
-  conPassword.value = JSON.parse(getPlayerScore)[e].Password;
-  //  .value = JSON.parse(getPlayerScore)[e].Hobby 
+  AddressOne.value = getPlayerScore[e].Address1;
+  Country.value = getPlayerScore[e].Country;
+  State.value = getPlayerScore[e].State;
+  City.value = getPlayerScore[e].City;
+  Pincode.value = getPlayerScore[e].PinCode;
+  Username.value = getPlayerScore[e].Username;
+  Emailid.value = getPlayerScore[e].EmaiId;
+  Password.value = getPlayerScore[e].Password;
+  conPassword.value = getPlayerScore[e].Password;
+  //  .value = getPlayerScore[e].Hobby 
   var a = document.getElementById('playGame');
   var b = document.getElementById('exercise');
   var c = document.getElementById('reading1');
 
-  console.log(JSON.parse(getPlayerScore)[e].Hobby[2]);
-  if (JSON.parse(getPlayerScore)[e].Hobby[0] == "Play Game") {
+  console.log(getPlayerScore[e].Hobby[2]);
+  if (getPlayerScore[e].Hobby[0] == "Play Game") {
     document.getElementById('playGame').checked = true;
   }
-  if (JSON.parse(getPlayerScore)[e].Hobby[1] == "Exercise") {
+  if (getPlayerScore[e].Hobby[1] == "Exercise") {
     document.getElementById('exercise').checked = true;
   }
-  if (JSON.parse(getPlayerScore)[e].Hobby[2] == "Reading") {
+  if (getPlayerScore[e].Hobby[2] == "Reading") {
     document.getElementById('reading1').checked = true;
   }
   numberOfitem = e;
-
-
-
 }
 
 $(document).ready(function () {
   $("#modalb").click(function () {
-  
     $("#event").click(function () {
       a1 = myFunction();
-      return a1;
+      if (a1 == true) {
+        document.location.reload(true);
+      }
+      else {
+        return a1;
+      }
     });
   });
   $(".update1").click(function () {
@@ -181,9 +229,9 @@ $(document).ready(function () {
     $("#event").click(function () {
       a1 = myFunction();
       if (a1 == false) {
-          return false;
+        return a1;
       }
-      else{
+      else {
         newval();
       }
     });
@@ -211,14 +259,12 @@ function myFunction() {
   } else {
     document.getElementById('validLname').style.display = 'none';
   }
-
   let Bdate = document.getElementById('dob');
   if (!Bdate.value) {
     document.getElementById('validBdate').style.display = 'block';
   } else {
     document.getElementById('validBdate').style.display = 'none';
   }
-
   let Male = document.getElementById('male').checked;
   let Female = document.getElementById('female').checked;
   if (Male == false && Female == false) {
@@ -226,15 +272,12 @@ function myFunction() {
   } else {
     document.getElementById('validGender').style.display = 'none';
   }
-
   let AddressOne = document.getElementById('addressOne');
   if (!AddressOne.value) {
     document.getElementById('validAddressOne').style.display = 'block';
   } else {
     document.getElementById('validAddressOne').style.display = 'none';
   }
-
-
   let Country = document.getElementById('country');
   if (!Country.value) {
     document.getElementById('validCountry').style.display = 'block';
@@ -253,21 +296,18 @@ function myFunction() {
   } else {
     document.getElementById('validCity').style.display = 'none';
   }
-
   let Pincode = document.getElementById('pinCode');
   if (!Pincode.value || Pincode.value.length != 6) {
     document.getElementById('validPincode').style.display = 'block';
   } else {
     document.getElementById('validPincode').style.display = 'none';
   }
-
   let Username = document.getElementById('userName');
   if (!Username.value) {
     document.getElementById('validUsername').style.display = 'block';
   } else {
     document.getElementById('validUsername').style.display = 'none';
   }
-
   let Emailid = document.getElementById('emaiId');
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (!Emailid.value) {
@@ -301,7 +341,6 @@ function myFunction() {
     document.getElementById('matchPassword').style.display = 'none';
 
   }
-
   if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Username.value || (!Pincode.value || Pincode.value.length != 6) || !City.value || !State.value || !Country.value || !AddressOne.value || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value) {
     return false;
   } else {
@@ -326,7 +365,6 @@ function myFunction() {
       "DOB": Bdate.value,
       "Gender": document.forms['myForm']['gender'].value,
       "Address1": AddressOne.value,
-    
       "Country": Country.value,
       "State": State.value,
       "City": City.value,
@@ -339,27 +377,16 @@ function myFunction() {
     })
     localStorage.setItem("old-users", JSON.stringify(record));
     return true;
-    
   }
 }
-
-
 function newval() {
-
   let getPlayerScore = localStorage.getItem("old-users");
   let n = JSON.parse(getPlayerScore).length;
-
   let a1 = JSON.parse(getPlayerScore);
-  z1=JSON.parse(getPlayerScore)[n-1];
-  console.log(z1);
-  a1.splice(numberOfitem, 1,z1 );
-  console.log(a1);
+  z1 = JSON.parse(getPlayerScore)[n - 1];
+  a1.splice(numberOfitem, 1, z1);
   n = JSON.parse(getPlayerScore).length;
-  console.log(n);
   a1.pop();
-  console.log(a1);
   localStorage.setItem("old-users", JSON.stringify(a1));
-
-
-
+  document.location.reload(true);
 }
