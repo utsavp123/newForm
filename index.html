@@ -12,18 +12,15 @@
     <script src="first.js"></script>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- ===== -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
 </head>
 
 <body>
     <div class="container mt-3">
+        
         <button type="button" id="modalb"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
             Registration Form
         </button>
+         <input type="search" class=" rounded" id="search"placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         <div class="table-responsive text-nowrap">
             <table class="table mt-3 table-striped table-bordered table-hover" id="topScores">
                 <thead class="table-primary">
@@ -48,34 +45,24 @@
                 </thead>
                 <tbody id="tbody"></tbody>
             </table>
-           
+            
         </div>
-        <nav aria-label="Page navigation example" id="pagination" class="mt-2">
-            <select class="form-select h-25 px-4" id="pagesNumberOfData" onchange="savePlayer()" aria-label="Default select example">
+  
+        <nav aria-label="Page navigation example" id="pagination" class="mt-2 row ">
+            <select class="form-select h-25 px-4 col-md-6 col-12" id="pagesNumberOfData" onchange="savePlayer()" aria-label="Default select example">
               <option value="5" selected>5</option>
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="100">100</option>
             </select>
-            <ul class="pagination " id="pages">
-
-              
+            <ul class="pagination col-md-6 col-12" id="pages"> 
             </ul>
           </nav>
     </div>
-
-
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-
-                <!-- Modal Header -->
-                <!-- <div class="modal-header">
-              <h4 class="modal-title">Modal Heading</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div> -->
-
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="disp ">
@@ -646,27 +633,14 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal footer -->
-                <!-- <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            </div> -->
-
-            </div>
+            </div>      
         </div>
     </div>
-    
+
     
     <script>
      savePlayer();
     </script>
-
-
-
-
-
-
-
 </body>
 
 </html>

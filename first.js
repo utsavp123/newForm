@@ -71,18 +71,28 @@ function savePlayer() {
   var pages = document.getElementById('pages');
 
   let pagesNumberOfData = document.getElementById('pagesNumberOfData');
-  console.log(pagesNumberOfData.value);
-
 
   var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
   for (var i = 0; i < n / pagesNumberOfData.value; i++) {
-    pageNumber += '<li class="page-item"><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
+    if(i==0){
+
+      pageNumber += '<li class="page-item active"><a class="page-link " id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
+    }else{
+      
+      pageNumber += '<li class="page-item"><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
+    }
   }
   pageNumber += '<li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>';
   pages.innerHTML += pageNumber;
   
+  // $(document).ready(function () {
+  //   $('li').click(function () {
+  //     $('li.page-item.active').removeClass("active");
+  //     $(this).addClass("active");
+  //   });
+  // });
+  var curr = 'pageNo1';
   $(document).ready(function () {
-    var curr = 'pageNo1';
     $("a").click(function () {
       if (this.id == "pre") {
         var str = $("#" + curr).text();
@@ -96,24 +106,30 @@ function savePlayer() {
         var str = $("#" + curr).text();
         if (str != parseInt(n/pagesNumberOfData.value)+1) {
           $("." + curr).hide();
-          $("." + 'pageNo' + (1 + Number(str))).show();
-          console.log(str + 1);
+          $("." + 'pageNo' + (1 + Number(str))).show(); 
           curr = 'pageNo' + (1 + Number(str));
+          $('li').click(function () {
+            $('li.page-item.active').removeClass("active");
+            $(this).addClass("active");
+            $("#"+curr).parent().addClass("active");
+          
+          });
+       
         }
       }
       else {
         $("." + curr).hide();
         $("." + this.id).show();
         curr = this.id;
+        $('li').click(function () {
+          $('li.page-item.active').removeClass("active");
+          $(this).addClass("active");
+
+        });
       }
     });
   });
-  $(document).ready(function () {
-    $('li').click(function () {
-      $('li.page-item.active').removeClass("active");
-      $(this).addClass("active");
-    });
-  });
+    
 
   var i = 0;
   for (var j = 0; j < n / pagesNumberOfData.value; j++) {
@@ -208,7 +224,6 @@ function myFunctionUpdate(e) {
   var b = document.getElementById('exercise');
   var c = document.getElementById('reading1');
 
-  console.log(getPlayerScore[e].Hobby[2]);
   if (getPlayerScore[e].Hobby[0] == "Play Game") {
     document.getElementById('playGame').checked = true;
   }
@@ -234,7 +249,7 @@ $(document).ready(function () {
     });
   });
   $(".update1").click(function () {
-    console.log("helo");
+
     $("#event").click(function () {
       a1 = myFunction();
       if (a1 == false) {
@@ -399,6 +414,19 @@ function newval() {
   localStorage.setItem("old-users", JSON.stringify(a1));
   document.location.reload(true);
 }
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#tbody tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
+
+
+
 
 
 
