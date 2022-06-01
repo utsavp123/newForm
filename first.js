@@ -74,23 +74,16 @@ function savePlayer() {
 
   var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
   for (var i = 0; i < n / pagesNumberOfData.value; i++) {
-    if(i==0){
+    if (i == 0) {
 
       pageNumber += '<li class="page-item active"><a class="page-link " id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
-    }else{
-      
+    } else {
+
       pageNumber += '<li class="page-item"><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
     }
   }
   pageNumber += '<li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>';
   pages.innerHTML += pageNumber;
-  
-  // $(document).ready(function () {
-  //   $('li').click(function () {
-  //     $('li.page-item.active').removeClass("active");
-  //     $(this).addClass("active");
-  //   });
-  // });
   var curr = 'pageNo1';
   $(document).ready(function () {
     $("a").click(function () {
@@ -104,17 +97,17 @@ function savePlayer() {
 
       } else if (this.id == "next") {
         var str = $("#" + curr).text();
-        if (str != parseInt(n/pagesNumberOfData.value)+1) {
+        if (str != parseInt(n / pagesNumberOfData.value) + 1) {
           $("." + curr).hide();
-          $("." + 'pageNo' + (1 + Number(str))).show(); 
+          $("." + 'pageNo' + (1 + Number(str))).show();
           curr = 'pageNo' + (1 + Number(str));
           $('li').click(function () {
             $('li.page-item.active').removeClass("active");
             $(this).addClass("active");
-            $("#"+curr).parent().addClass("active");
-          
+            $("#" + curr).parent().addClass("active");
+
           });
-       
+
         }
       }
       else {
@@ -129,9 +122,10 @@ function savePlayer() {
       }
     });
   });
-    
+
 
   var i = 0;
+
   for (var j = 0; j < n / pagesNumberOfData.value; j++) {
     for (var k = 0; k < pagesNumberOfData.value; k++) {
       var tr = "<tr class='pageNo" + (j + 1) + "'";
@@ -155,13 +149,28 @@ function savePlayer() {
         tr += "<td>" + data[i].PinCode + "</td>";
         tr += "<td>" + data[i].Username + "</td>";
         tr += "<td>" + data[i].EmaiId + "</td>";
-        tr += "<td>" + data[i].Password + "</td>";
+        tr += "<td> <input type='password' class='password '  id='password" + (i + 1) + "' name='password' disabled> <i class='bi bi-eye-slash' onclick='passwordIcon1(this," + (i + 1) + ")' class='togglePassword'" + (i + 1) + "></i></td>";
         tr += "<td>" + data[i].Hobby + "</td>";
         tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ")' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
         tbody.innerHTML += tr;
         i++;
       }
     }
+
+  }
+  for (var k = 0; k < n; k++) {
+    document.getElementById('password' + (k + 1)).value = data[k].Password;
+  }
+}
+function passwordIcon1(e, n) {
+  // const togglePassword1 = document.querySelector("#togglePassword"+e);
+  const x = document.getElementById('password' + n);
+  if (x.type === "password") {
+    x.type = "text";
+    e.classList.toggle("bi-eye");
+  } else {
+    x.type = "password";
+    e.classList.toggle("bi-eye");
   }
 }
 
@@ -194,11 +203,7 @@ function myFunctionUpdate(e) {
   let Emailid = document.getElementById('emaiId');
   let Password = document.getElementById('password');
   let conPassword = document.getElementById('confPass');
-
   let getPlayerScore = JSON.parse(localStorage.getItem("old-users"));
-
-  // localStorage.setItem("old-users", JSON.stringify(a1));
-  // document.location.reload(true);
 
   Fname.value = getPlayerScore[e].Fname;
   Mname.value = getPlayerScore[e].Mname;
@@ -235,32 +240,6 @@ function myFunctionUpdate(e) {
   }
   numberOfitem = e;
 }
-
-$(document).ready(function () {
-  $("#modalb").click(function () {
-    $("#event").click(function () {
-      a1 = myFunction();
-      if (a1 == true) {
-        document.location.reload(true);
-      }
-      else {
-        return a1;
-      }
-    });
-  });
-  $(".update1").click(function () {
-
-    $("#event").click(function () {
-      a1 = myFunction();
-      if (a1 == false) {
-        return a1;
-      }
-      else {
-        newval();
-      }
-    });
-  });
-});
 
 function myFunction() {
   let i;
@@ -412,21 +391,30 @@ function newval() {
   n = JSON.parse(getPlayerScore).length;
   a1.pop();
   localStorage.setItem("old-users", JSON.stringify(a1));
-  document.location.reload(true);
+  savePlayer();
+  document.getElementById("event").setAttribute("data-bs-dismiss", "modal");
 }
-$(document).ready(function(){
-  $("#search").on("keyup", function() {
+$(document).ready(function () {
+  let a1;
+  $("#event").click(function () {
+    a1 = myFunction();
+  });
+  $(".update1").click(function () {
+    $("#event").click(function () {
+      if (a1 == false) {
+        return a1;
+      }
+      else {
+        newval();
+      }
+    });
+  });
+  });
+$(document).ready(function () {
+  $("#search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
-    $("#tbody tr").filter(function() {
+    $("#tbody tr").filter(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
 });
-
-
-
-
-
-
-
-
