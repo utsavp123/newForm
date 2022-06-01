@@ -107,7 +107,6 @@ function savePlayer() {
             $("#" + curr).parent().addClass("active");
 
           });
-
         }
       }
       else {
@@ -128,13 +127,13 @@ function savePlayer() {
 
   for (var j = 0; j < n / pagesNumberOfData.value; j++) {
     for (var k = 0; k < pagesNumberOfData.value; k++) {
-      var tr = "<tr class='pageNo" + (j + 1) + "'";
+      var tr = "<tr class='item pageNo" + (j + 1) + "'";
       var data = JSON.parse(localStorage.getItem("old-users"));
       if (i < n) {
         if (j == 0) {
-          tr += "<tr class='pageNo" + (j + 1) + "'>";
+          tr += "<tr class='item pageNo" + (j + 1) + "'>";
         } else {
-          tr += "<tr class='pageNo" + (j + 1) + "'style='display: none;'>";
+          tr += "<tr class='item pageNo" + (j + 1) + "'style='display: none;'>";
         }
         tr += "<td>" + (i + 1) + "</td>";
         tr += "<td>" + data[i].Fname + "</td>";
@@ -149,7 +148,7 @@ function savePlayer() {
         tr += "<td>" + data[i].PinCode + "</td>";
         tr += "<td>" + data[i].Username + "</td>";
         tr += "<td>" + data[i].EmaiId + "</td>";
-        tr += "<td> <input type='password' class='password '  id='password" + (i + 1) + "' name='password' disabled> <i class='bi bi-eye-slash' onclick='passwordIcon1(this," + (i + 1) + ")' class='togglePassword'" + (i + 1) + "></i></td>";
+        tr += "<td> <input type='password' class='password w-auto'  id='password" + (i + 1) + "' name='password' disabled> <i class='bi bi-eye-slash' onclick='passwordIcon1(this," + (i + 1) + ")' class='togglePassword'" + (i + 1) + "></i></td>";
         tr += "<td>" + data[i].Hobby + "</td>";
         tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ")' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
         tbody.innerHTML += tr;
@@ -163,7 +162,6 @@ function savePlayer() {
   }
 }
 function passwordIcon1(e, n) {
-  // const togglePassword1 = document.querySelector("#togglePassword"+e);
   const x = document.getElementById('password' + n);
   if (x.type === "password") {
     x.type = "text";
@@ -416,5 +414,21 @@ $(document).ready(function () {
     $("#tbody tr").filter(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
+    document.getElementById('search').addEventListener('input', (e) => {
+      var InputValue = e.currentTarget.value;
+      if(InputValue == ""){
+        savePlayer();
+      }
+     })
+  });
+});
+
+let tid = "#topScores";
+let headers = document.querySelectorAll(tid + " th");
+
+// Sort the table element when clicking on the table headers
+headers.forEach(function(element, i) {
+  element.addEventListener("click", function() {
+    w3.sortHTML(tid, ".item", "td:nth-child(" + (i + 1) + ")");
   });
 });

@@ -12,52 +12,58 @@
     <script src="first.js"></script>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="container mt-3">
-        
-        <button type="button" id="modalb"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-            Registration Form
-        </button>
-         <input type="search" class=" rounded" id="search"placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <div class="row justify-content-around ">
+            <button type="button" id="modalb" class="btn btn-primary col-md-2 col-7 my-2 " data-bs-toggle="modal"
+                data-bs-target="#myModal">
+                Registration Form
+            </button>
+            <input type="search" class=" rounded col-md-2 col-7 my-2" id="search" placeholder="Search"
+                aria-label="Search" aria-describedby="search-addon" />
+        </div>
         <div class="table-responsive text-nowrap">
-            <table class="table mt-3 table-striped table-bordered table-hover" id="topScores">
+            <table class="table mt-3 table-bordered table-hover sortable" id="topScores">
                 <thead class="table-primary">
                     <tr>
-                        <th>No.</th>
-                        <th>Firstname</th>
-                        <th>Middlename</th>
-                        <th>Lastname</th>
-                        <th>DOB</th>
-                        <th>Gender</th>
-                        <th>Add-1</th>
-                        <th>Country</th>
-                        <th>State</th>
-                        <th>City</th>
-                        <th>PinCode</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Hobby</th>
-                        <th>Action</th>
-                    </tr>   
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(1)')">No.</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(2)')">Firstname</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(3)')">Middlename</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(4)')">Lastname</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(5)')">DOB</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(6)')">Gender</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(7)')">Add-1</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(8)')">Country</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(9)')">State</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(10)')">City</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(11)')">PinCode</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(12)')">Username</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(13)')">Email</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(14)')">Password</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(15)')">Hobby</th>
+                        <th onclick="w3.sortHTML('#topScores', '.item', 'td:nth-child(16)')">Action</th>
+                    </tr>
                 </thead>
                 <tbody id="tbody"></tbody>
             </table>
-            
+
         </div>
-  
+
         <nav aria-label="Page navigation example" id="pagination" class="mt-2 row ">
-            <select class="form-select h-25 px-4 col-md-6 col-12" id="pagesNumberOfData" onchange="savePlayer()" aria-label="Default select example">
-              <option value="5" selected>5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="100">100</option>
+            <select class="form-select h-25 px-4 col-md-6 col-12" id="pagesNumberOfData" onchange="savePlayer()"
+                aria-label="Default select example">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="100">100</option>
             </select>
-            <ul class="pagination col-md-6 col-12" id="pages"> 
+            <ul class="pagination col-md-6 col-12" id="pages">
             </ul>
-          </nav>
+        </nav>
     </div>
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
@@ -619,7 +625,7 @@
                                         </div>
                                         <div class="row text-center ">
                                             <div class="col-6   ">
-                                                <button type="submit" id="event" 
+                                                <button type="submit" id="event"
                                                     class="btn px-5 btn-primary">Save</button>
                                             </div>
                                             <div class="col-6   ">
@@ -633,13 +639,11 @@
                         </div>
                     </div>
                 </div>
-            </div>      
+            </div>
         </div>
     </div>
-
-    
     <script>
-     savePlayer();
+        savePlayer();
     </script>
 </body>
 
