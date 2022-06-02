@@ -29,7 +29,8 @@
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
-.img{
+
+.img {
   border-radius: 75px;
   background: url("about-3.jpeg") no-repeat center/cover;
   /* background-size: 100% 100%; */
@@ -37,23 +38,26 @@
   /* background-position:left; */
 }
 
-.hader{
+.hader {
   /* margin-top: 50px; */
   display: none;
   border-radius: 10px;
   background-color: rgb(102, 26, 102);
 }
-.hader-2{
+
+.hader-2 {
   margin-top: 50px;
   border-radius: 10px;
   /* background-color: rgb(102, 26, 102); */
 }
+
 label.addLable {
   transform: scale(0.8) translateY(-0.9rem) translateX(1rem) !important;
   font-size: 1rem !important;
 }
 
-.names ,.h-75 {
+.names,
+.h-75 {
   height: 40px !important;
 }
 
@@ -61,7 +65,7 @@ label.addLable {
 .form-select:focus {
   box-shadow: none;
   border-color: rgb(233, 186, 100);
-  border: 2px solid rgb(255, 166, 0)  ;
+  border: 2px solid rgb(255, 166, 0);
 }
 
 .form-floating>.form-control:focus,
@@ -70,10 +74,11 @@ label.addLable {
   padding-bottom: .625rem;
   font-size: .9rem;
 }
+
 .container {
   width: 100%;
-  padding-right: var(--bs-gutter-x,.0rem);
-  padding-left: var(--bs-gutter-x,.0rem);
+  padding-right: var(--bs-gutter-x, .0rem);
+  padding-left: var(--bs-gutter-x, .0rem);
   margin-right: auto;
   margin-left: auto;
 }
@@ -107,14 +112,16 @@ label {
   border-bottom: 0;
   border-left: .3em solid transparent;
 }
+
 form i {
   margin-left: 83%;
   cursor: pointer;
   margin-top: -34px;
   position: absolute;
 }
-textarea{
-  border : 1px solid rgb(195, 192, 192)
+
+textarea {
+  border: 1px solid rgb(195, 192, 192)
 }
 
 
@@ -159,22 +166,27 @@ textarea{
   padding: 4px;
   width: 100px;
 }
+
 .pin-c>label.m-3 {
   font-size: 1rem;
 }
+
 /* body{
       background: url("about-1.jpg")no-repeat center/cover;
   } */
-.disp{
+.disp {
 
   background: -webkit-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -webkit-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
   background: -o-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -o-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
   background: -moz-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -moz-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
-  background: linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);;
-  }
+  background: linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
+  ;
+}
+
 .form-floating>label {
   color: black;
 }
+
 .modal-content {
   position: relative;
   display: flex;
@@ -182,11 +194,12 @@ textarea{
   width: 100%;
   pointer-events: auto;
   background-color: rgba(255, 255, 255, 0);
-  background-clip:border-box;
-  border: 0px solid rgba(0,0,0,.2);
+  background-clip: border-box;
+  border: 0px solid rgba(0, 0, 0, .2);
   border-radius: .3rem;
   outline: 0;
 }
+
 .modal-body {
   position: relative;
   flex: 1 1 auto;
@@ -199,13 +212,14 @@ textarea{
   padding: 5px;
   /* box-shadow: 2px 2px 2px 2px #302e2e; */
   /* padding: 2 px; */
-} 
+}
 
 @media (min-width:1000px) {
   .container.my-4 {
     max-width: 70%;
     /* min-width: 100%; */
   }
+
   form i {
     margin-left: 83%;
     cursor: pointer;
@@ -213,15 +227,21 @@ textarea{
     position: absolute;
   }
 }
+
 @media (max-width:999px) {
-  .img{
+  .img {
     display: none;
   }
-  .hader{
+
+  .hader {
     /* margin-top: 50px; */
     display: block;
     border-radius: 10px;
     background-color: rgb(102, 26, 102);
+  }
+
+  i.fa.fa-close.float-end.m-2.icon {
+    display: none;
   }
 }
 
@@ -247,23 +267,26 @@ span {
   display: none;
   /* text-align: center; */
 }
-#address>.form-floating>.form-control{
+
+#address>.form-floating>.form-control {
   background-color: transparent !important;
 }
 
 #pagination {
-  justify-content:space-around;
+  justify-content: space-around;
   display: flex;
   padding-left: 0;
   list-style: none;
 }
-#pagesNumberOfData{
+
+#pagesNumberOfData {
   /* margin: 2%; */
   /* padding: 1%; */
-  width: auto ;
+  width: auto;
 
 }
- .pagination {
+
+.pagination {
   display: inline-block;
 }
 
@@ -272,7 +295,7 @@ span {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-} 
+}
 
 .page-item.active .page-link {
   z-index: 3;
@@ -284,4 +307,4 @@ span {
 .pagination a:hover:not(.active) {
   background-color: #ddd;
   border-radius: 5px;
-} 
+}

@@ -1,3 +1,4 @@
+
 jQuery(function ($) {
   $('#tags input').on('focusout', function () {
     var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
@@ -71,9 +72,9 @@ function savePlayer() {
   var pages = document.getElementById('pages');
 
   let pagesNumberOfData = document.getElementById('pagesNumberOfData');
-
+  let aab = Math.ceil(n / pagesNumberOfData.value)
   var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
-  for (var i = 0; i < n / pagesNumberOfData.value; i++) {
+  for (var i = 0; i < aab; i++) {
     if (i == 0) {
 
       pageNumber += '<li class="page-item active"><a class="page-link " id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
@@ -97,7 +98,7 @@ function savePlayer() {
 
       } else if (this.id == "next") {
         var str = $("#" + curr).text();
-        if (str != parseInt(n / pagesNumberOfData.value) + 1) {
+        if (str != Math.ceil((n / pagesNumberOfData.value))) {
           $("." + curr).hide();
           $("." + 'pageNo' + (1 + Number(str))).show();
           curr = 'pageNo' + (1 + Number(str));
@@ -127,13 +128,13 @@ function savePlayer() {
 
   for (var j = 0; j < n / pagesNumberOfData.value; j++) {
     for (var k = 0; k < pagesNumberOfData.value; k++) {
-      var tr = "<tr class='item pageNo" + (j + 1) + "'";
+      // var tr = "<tr class='item pageNo" + (j + 1) + "'";
       var data = JSON.parse(localStorage.getItem("old-users"));
       if (i < n) {
         if (j == 0) {
-          tr += "<tr class='item pageNo" + (j + 1) + "'>";
+          tr = "<tr class='item pageNo" + (j + 1) + "'>";
         } else {
-          tr += "<tr class='item pageNo" + (j + 1) + "'style='display: none;'>";
+          tr = "<tr class='item pageNo" + (j + 1) + "'style='display: none;'>";
         }
         tr += "<td>" + (i + 1) + "</td>";
         tr += "<td>" + data[i].Fname + "</td>";
@@ -148,7 +149,7 @@ function savePlayer() {
         tr += "<td>" + data[i].PinCode + "</td>";
         tr += "<td>" + data[i].Username + "</td>";
         tr += "<td>" + data[i].EmaiId + "</td>";
-        tr += "<td> <input type='password' class='password w-auto'  id='password" + (i + 1) + "' name='password' disabled> <i class='bi bi-eye-slash' onclick='passwordIcon1(this," + (i + 1) + ")' class='togglePassword'" + (i + 1) + "></i></td>";
+        tr += "<td> <input type='password' class='password w-auto'  id='password" + (i + 1) + "' name='password' disabled> <b class='bi bi-eye-slash' onclick='passwordIcon1(this," + (i + 1) + ")' class='togglePassword'" + (i + 1) + "></b></td>";
         tr += "<td>" + data[i].Hobby + "</td>";
         tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ")' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
         tbody.innerHTML += tr;
@@ -215,8 +216,11 @@ function myFunctionUpdate(e) {
   }
   AddressOne.value = getPlayerScore[e].Address1;
   Country.value = getPlayerScore[e].Country;
+  changeCountry();
   State.value = getPlayerScore[e].State;
+  changeState();
   City.value = getPlayerScore[e].City;
+
   Pincode.value = getPlayerScore[e].PinCode;
   Username.value = getPlayerScore[e].Username;
   Emailid.value = getPlayerScore[e].EmaiId;
@@ -286,13 +290,13 @@ function myFunction() {
     document.getElementById('validCountry').style.display = 'none';
   }
   let State = document.getElementById('state');
-  if (!State.value) {
+  if (!State.value || State.value == 'State') {
     document.getElementById('validState').style.display = 'block';
   } else {
     document.getElementById('validState').style.display = 'none';
   }
   let City = document.getElementById('city');
-  if (!City.value) {
+  if (!City.value || City.value == 'City') {
     document.getElementById('validCity').style.display = 'block';
   } else {
     document.getElementById('validCity').style.display = 'none';
@@ -342,7 +346,7 @@ function myFunction() {
     document.getElementById('matchPassword').style.display = 'none';
 
   }
-  if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Username.value || (!Pincode.value || Pincode.value.length != 6) || !City.value || !State.value || !Country.value || !AddressOne.value || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value) {
+  if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Username.value || (!Pincode.value || Pincode.value.length != 6) || (!City.value || City.value == 'City') || (!State.value || State.value == 'State') || !Country.value || !AddressOne.value || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value) {
     return false;
   } else {
     abc = []
@@ -358,6 +362,8 @@ function myFunction() {
     if (c == true) {
       abc.push(document.getElementById('reading1').value);
     }
+    xyz = [];
+    xyz.push(document.querySelectorAll('tab').value);
     record = JSON.parse(localStorage.getItem("old-users")) ? JSON.parse(localStorage.getItem("old-users")) : [];
     record.push({
       "Fname": Fname.value,
@@ -375,6 +381,7 @@ function myFunction() {
       "Password": Password.value,
       "ConfirmPassword": conPassword.value,
       "Hobby": abc,
+      "Skill": xyz
     })
     localStorage.setItem("old-users", JSON.stringify(record));
     return true;
@@ -396,6 +403,7 @@ $(document).ready(function () {
   let a1;
   $("#event").click(function () {
     a1 = myFunction();
+    return a1;
   });
   $(".update1").click(function () {
     $("#event").click(function () {
@@ -407,7 +415,9 @@ $(document).ready(function () {
       }
     });
   });
-  });
+});
+
+
 $(document).ready(function () {
   $("#search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
@@ -416,19 +426,93 @@ $(document).ready(function () {
     });
     document.getElementById('search').addEventListener('input', (e) => {
       var InputValue = e.currentTarget.value;
-      if(InputValue == ""){
+      if (InputValue == "") {
         savePlayer();
       }
-     })
+    })
   });
 });
 
-let tid = "#topScores";
-let headers = document.querySelectorAll(tid + " th");
+function sortListDir(e) {
+  var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
+  list = document.getElementById("tbody");
+  switching = true;
+  dir = "asc";
+  while (switching) {
+    switching = false;
+    b = list.querySelectorAll('td:nth-of-type(' + e + ')');
+    a = list.getElementsByTagName('tr');
+    for (i = 0; i < (b.length - 1); i++) {
+      shouldSwitch = false;
+      if (dir == "asc") {
+        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
 
-// Sort the table element when clicking on the table headers
-headers.forEach(function(element, i) {
-  element.addEventListener("click", function() {
-    w3.sortHTML(tid, ".item", "td:nth-child(" + (i + 1) + ")");
-  });
-});
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
+
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      a[i].parentNode.insertBefore(a[i + 1], a[i]);
+      switching = true;
+
+      switchcount++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+var a2 = {
+  "India": {
+    "Bihar": ["Patna", "Gaya", "Muzaffarpur"],
+    "Goa": ["Cuncolim", "Canacona", "Bicholim"],
+    "Gujarat": ["Ahemdabad", "Surat", "Vadodara"]
+  },
+  'USA': {
+    "Alabama": ["Birmingham", "Huntsville", "Montgomery"],
+    "Alaska": ["Fairbanks", "Juneau", "Anchorage"],
+    "California": ["Los Angeles", "San Jose", "San Diego"]
+  },
+  "Indonesia": {
+    "Aceh": ["Lhokseumawe ", "Bireuën", "Banda Aceh"],
+    "Bali": ["Kuta", "Ubud", "Denpasar (at Sanur)"],
+    "Bangka Belitung": ["Pangkal Pinang ", "Manggar", "Sungai Liat"]
+  }
+
+}
+
+function changeCountry() {
+  var a = document.getElementById('country').value;
+  let arr = ['State'];
+  for (var key in a2[a]) {
+    arr.push(key);
+  }
+  var string = "";
+  for (var i = 0; i < arr.length; i++) {
+    string = string + "<Option value='" + arr[i] + "'>" + arr[i] + "</Option>";
+  }
+  document.getElementById('state').innerHTML = string;
+  changeState();
+}
+
+function changeState() {
+  var a = document.getElementById('state').value;
+  var b = document.getElementById('country').value;
+  let arr = new Array('City');
+  arr.push.apply(arr, a2[b][a]);
+  var string = "";
+  for (var i = 0; i < arr.length; i++) {
+    string = string + "<Option value='" + arr[i] + "'>" + arr[i] + "</Option>";
+  }
+  document.getElementById('city').innerHTML = string;
+}
