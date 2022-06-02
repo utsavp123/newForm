@@ -303,8 +303,14 @@ span {
   background-color: #0d6efd;
   border-color: #ffffff;
 }
-
 .pagination a:hover:not(.active) {
   background-color: #ddd;
   border-radius: 5px;
+}
+.page-link:focus {
+  z-index: 3;
+  color: #0a58ca;
+  background-color: #e9ecef;
+  outline: 0;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.25);
 }

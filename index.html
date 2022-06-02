@@ -25,7 +25,7 @@
                 aria-label="Search" aria-describedby="search-addon" />
         </div>
         <div class="table-responsive text-nowrap">
-            <table class="table mt-3 table-bordered table-hover sortable" id="topScores">
+              <table class="table mt-3 table-bordered table-hover sortable" id="topScores">
                 <thead class="table-primary" id="topScores1">
                     <tr>
                         <th onclick=" sortListDir(1)">No.</th>
@@ -43,12 +43,12 @@
                         <th onclick=" sortListDir(13)">Email</th>
                         <th onclick=" sortListDir(14)">Password</th>
                         <th onclick=" sortListDir(15)">Hobby</th>
-                        <th onclick=" sortListDir(16)">Action</th>
+                        <th onclick=" sortListDir(16)">Skills</th>
+                        <th onclick="">Action</th>
                     </tr>
                 </thead>
                 <tbody id="tbody"></tbody>
             </table>
-
         </div>
 
         <nav aria-label="Page navigation example" id="pagination" class="mt-2 row ">
@@ -92,20 +92,20 @@
                                         <div class="row">
                                             <div class="col-sm-4 col-12 p-2  form-floating ">
                                                 <input type="text" class="w-100  h-75 form-control"
-                                                    onchange="myChange()" placeholder="First Name" id="fname"
+                                                    onchange="myChange()" placeholder="First Name" id="fname" oninput="this.value = this.value.replace(/[^A-Za-z.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                     name="fname">
                                                 <label for="fname">First Name</label>
                                                 <span id="validFname">Please Enter Valid Details</span>
 
                                             </div>
                                             <div class="col-sm-4 col-12 p-2 form-floating ">
-                                                <input type="text" class="w-100 h-75 form-control" onchange="myChange()"
+                                                <input type="text" class="w-100 h-75 form-control" onchange="myChange()" oninput="this.value = this.value.replace(/[^A-Za-z.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                     placeholder="middle name" id="mname" name="mname">
                                                 <label for="fname">Middle Name</label>
                                                 <span id="validMname">Please Enter Valid Details</span>
                                             </div>
                                             <div class="col-sm-4 col-12 p-2 form-floating ">
-                                                <input type="text" class="w-100 h-75 form-control" onchange="myChange()"
+                                                <input type="text" class="w-100 h-75 form-control" onchange="myChange()" oninput="this.value = this.value.replace(/[^A-Za-z.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                     placeholder="last name" id="lname" name="lname">
                                                 <label for="fname">Last Name</label>
                                                 <span id="validLname">Please Enter Valid Details</span>
@@ -184,7 +184,6 @@
                                                                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" />
                                                             <label for="pin-code" class="m-3 mx-2">Pin-code </label>
                                                             <span id="validPincode">Please Enter Valid Pincode</span>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,6 +256,7 @@
                                                         class="form-check-input">
                                                     <label for="exercise" class="form-check-label">Exercise</label>
                                                 </div>
+                                                <span id="validHobby">Please Enter Minimum One Hobby Select</span>
                                             </div>
                                         </div>
                                         <div class="row  mb-3 px-4" id="skills">
@@ -265,9 +265,11 @@
                                             </div>
                                             <div class="col-md-10 col-sm-8 col-6">
                                                 <div id="tags">
-                                                    <input type="text" value="" placeholder="Add a skill" />
+                                                    <div id="ski"></div>
+                                                    <input type='text' value='' id='in' onchange="" placeholder='Add a skill'/>
                                                 </div>
                                             </div>
+                                            <span id="validSkill">Please Enter Minimum One Skill Select</span>
                                         </div>
                                         <div class="row text-center ">
                                             <div class="col-6   ">

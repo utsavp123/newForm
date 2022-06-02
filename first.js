@@ -1,21 +1,29 @@
-
+let skills = 0;
 jQuery(function ($) {
+  skills= 0;
   $('#tags input').on('focusout', function () {
     var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
-    if (txt) $(this).before('<span class="tag">' + txt + '</span>');
+    if (txt) {$('#in').before('<span class="tag">' + txt + '</span>');
+    skills++;
+    console.log();
+  }
     this.value = "";
 
-  }).on('keyup', function (e) {
+  });
+  $('input').on('keyup', function (e) {
     // comma|enter (add more keyCodes delimited with | pipe)
     if (/(188|13)/.test(e.which)) $(this).trigger('focusout');
   });
 
   $('#tags').on('click', '.tag', function () {
     $(this).remove();
+    skills--;
+
   });
 
 });
 
+// font change----------------
 function myChange(e) {
   var Fname = document.getElementById('fname');
   var Mname = document.getElementById('mname');
@@ -24,7 +32,7 @@ function myChange(e) {
   Mname.value = Mname.value.toUpperCase();
   Lname.value = Lname.value.toUpperCase();
 }
-
+// Password icon-----------------
 function passwordIcon() {
   const togglePassword = document.querySelector("#togglePassword");
   const x = document.getElementById('password');
@@ -36,6 +44,7 @@ function passwordIcon() {
     togglePassword.classList.toggle("bi-eye");
   }
 }
+// conPassword icon-----------------
 function confPassIcon() {
   const togglePassword2 = document.querySelector("#togglePassword2");
   const x = document.getElementById('confPass');
@@ -48,6 +57,7 @@ function confPassIcon() {
   }
 }
 
+// All check box Click----------------------
 function allCheckBoxClick() {
   let allCheckBox = document.getElementById('allCheckBox').checked;
   if (allCheckBox == true) {
@@ -60,8 +70,11 @@ function allCheckBoxClick() {
     document.getElementById('reading1').checked = false;
   }
 }
+
+// save record-------------
 let numberOfitem;
 function savePlayer() {
+  console.log(skills);
   document.getElementById("tbody").innerHTML = "";
   document.getElementById("pages").innerHTML = "";
 
@@ -94,8 +107,11 @@ function savePlayer() {
           $("." + curr).hide();
           $("." + 'pageNo' + (str - 1)).show();
           curr = 'pageNo' + (str - 1);
+          $('li').click(function () {
+            $('li.page-item.active').removeClass("active");
+            $("#" + curr).parent().addClass("active");
+          });
         }
-
       } else if (this.id == "next") {
         var str = $("#" + curr).text();
         if (str != Math.ceil((n / pagesNumberOfData.value))) {
@@ -104,9 +120,7 @@ function savePlayer() {
           curr = 'pageNo' + (1 + Number(str));
           $('li').click(function () {
             $('li.page-item.active').removeClass("active");
-            $(this).addClass("active");
             $("#" + curr).parent().addClass("active");
-
           });
         }
       }
@@ -125,7 +139,6 @@ function savePlayer() {
 
 
   var i = 0;
-
   for (var j = 0; j < n / pagesNumberOfData.value; j++) {
     for (var k = 0; k < pagesNumberOfData.value; k++) {
       // var tr = "<tr class='item pageNo" + (j + 1) + "'";
@@ -151,6 +164,7 @@ function savePlayer() {
         tr += "<td>" + data[i].EmaiId + "</td>";
         tr += "<td> <input type='password' class='password w-auto'  id='password" + (i + 1) + "' name='password' disabled> <b class='bi bi-eye-slash' onclick='passwordIcon1(this," + (i + 1) + ")' class='togglePassword'" + (i + 1) + "></b></td>";
         tr += "<td>" + data[i].Hobby + "</td>";
+        tr += "<td>" + data[i].Skills + "</td>";
         tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ")' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
         tbody.innerHTML += tr;
         i++;
@@ -162,6 +176,8 @@ function savePlayer() {
     document.getElementById('password' + (k + 1)).value = data[k].Password;
   }
 }
+
+// Table passwordIcon-----------------
 function passwordIcon1(e, n) {
   const x = document.getElementById('password' + n);
   if (x.type === "password") {
@@ -173,8 +189,9 @@ function passwordIcon1(e, n) {
   }
 }
 
+
 function myFunctionDelete(e) {
-  if (confirm("Press a button!") == true) {
+  if (confirm("Delete Record!") == true) {
     let getPlayerScore = localStorage.getItem("old-users");
     let a1 = JSON.parse(getPlayerScore);
     a1.splice(e, 1);
@@ -186,7 +203,6 @@ function myFunctionDelete(e) {
 
 }
 function myFunctionUpdate(e) {
-
   let Fname = document.getElementById('fname');
   let Mname = document.getElementById('mname');
   let Lname = document.getElementById('lname');
@@ -203,7 +219,15 @@ function myFunctionUpdate(e) {
   let Password = document.getElementById('password');
   let conPassword = document.getElementById('confPass');
   let getPlayerScore = JSON.parse(localStorage.getItem("old-users"));
-
+  let skillSet = getPlayerScore[e].Skills;
+  skills = skillSet.length;
+  tr= '';
+  $('.tag').remove();
+  for(i in skillSet){
+    console.log(skillSet[i]);
+    tr+='<span class="tag">' +skillSet[i]  + '</span>'
+  }
+  $("#in").before(tr);
   Fname.value = getPlayerScore[e].Fname;
   Mname.value = getPlayerScore[e].Mname;
   Lname.value = getPlayerScore[e].Lname;
@@ -319,8 +343,10 @@ function myFunction() {
     document.getElementById('validEmailId').style.display = 'block';
   } else if (Emailid.value.match(mailformat)) {
     document.getElementById('validEmailId').style.display = 'none';
+  }else{
+    document.getElementById('validEmailId').style.display = 'block';
   }
-
+  
   let Password = document.getElementById('password');
   if (!Password.value) {
     document.getElementById('validPassword').style.display = 'none';
@@ -344,9 +370,23 @@ function myFunction() {
   else {
     document.getElementById('validConPassword').style.display = 'none';
     document.getElementById('matchPassword').style.display = 'none';
+  }
+  var a = document.getElementById('playGame').checked;
+  var b = document.getElementById('exercise').checked;
+  var c = document.getElementById('reading1').checked;
+  if(a == true||b == true||c == true){
+    document.getElementById('validHobby').style.display = 'none';
+  }else{
+    document.getElementById('validHobby').style.display = 'block';
+  }
+console.log(skills);
+  if(skills<1){
+    document.getElementById('validSkill').style.display = 'block';
+  }else{
+    document.getElementById('validSkill').style.display = 'none';
 
   }
-  if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Username.value || (!Pincode.value || Pincode.value.length != 6) || (!City.value || City.value == 'City') || (!State.value || State.value == 'State') || !Country.value || !AddressOne.value || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value) {
+  if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Emailid.value.match(mailformat)|| !Username.value || (!Pincode.value || Pincode.value.length != 6) || (!City.value || City.value == 'City') || (!State.value || State.value == 'State') || !Country.value || !AddressOne.value || skills<1||(Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value ||(a == false&&b == false&&c == false)) {
     return false;
   } else {
     abc = []
@@ -362,7 +402,12 @@ function myFunction() {
     if (c == true) {
       abc.push(document.getElementById('reading1').value);
     }
-    xyz = [];
+    Skills1=[];
+    for (i = 0 ; i < skills ; i++){
+      skill = document.getElementsByClassName("tag")[i];
+      Skills1.push(skill.innerHTML.toUpperCase());
+    } 
+   xyz = [];
     xyz.push(document.querySelectorAll('tab').value);
     record = JSON.parse(localStorage.getItem("old-users")) ? JSON.parse(localStorage.getItem("old-users")) : [];
     record.push({
@@ -381,7 +426,7 @@ function myFunction() {
       "Password": Password.value,
       "ConfirmPassword": conPassword.value,
       "Hobby": abc,
-      "Skill": xyz
+      "Skills":Skills1
     })
     localStorage.setItem("old-users", JSON.stringify(record));
     return true;
@@ -488,9 +533,7 @@ var a2 = {
     "Bali": ["Kuta", "Ubud", "Denpasar (at Sanur)"],
     "Bangka Belitung": ["Pangkal Pinang ", "Manggar", "Sungai Liat"]
   }
-
 }
-
 function changeCountry() {
   var a = document.getElementById('country').value;
   let arr = ['State'];
@@ -504,7 +547,6 @@ function changeCountry() {
   document.getElementById('state').innerHTML = string;
   changeState();
 }
-
 function changeState() {
   var a = document.getElementById('state').value;
   var b = document.getElementById('country').value;
