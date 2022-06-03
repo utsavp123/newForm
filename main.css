@@ -181,18 +181,31 @@ textarea {
   font-size: 1rem;
 }
 
-/* body{
-      background: url("about-1.jpg")no-repeat center/cover;
-  } */
 .disp {
-
-  background: -webkit-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -webkit-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
-  background: -o-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -o-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
-  background: -moz-linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), -moz-radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%);
-  background: linear-gradient(110deg, #a60af3 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%, #7a00cc 70%, #c03fff 70%) ;
+  background: linear-gradient(110deg, #8929ad 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%, #581f78 70%, #9140b9 70%) ;
   
 }
+.dot{
+  position: relative;
+  display: block;
+  color: #0d6efd;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 
+
+
+.dot {
+  /* color: black; */
+  float: left;
+  padding: 11.5px 9px;
+  text-decoration: none;
+}
+.dot:not(:first-child) .dot {
+  margin-left: -1px;
+}
 .form-floating>label {
   color: black;
 }
@@ -342,3 +355,4 @@ table {
   padding: 9px 9px;
   text-decoration: none;
 }
+

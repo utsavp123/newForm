@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    
     <div class="container mt-3 overflow-hidden">
         <div class="row justify-content-between mx-2  ">
             <div class="col-md-6 col-12 px-5 py-2 ">
@@ -145,7 +146,7 @@
                                                             <label for="female" class="form-check-label">Female</label>
                                                         </div>
                                                     </div>
-                                                    <span id="validGender">Please Enter Your Birth Date </span>
+                                                    <span id="validGender">Please Enter Your Gender Date </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +283,7 @@
                                         </div>
                                         <div class="row text-center ">
                                             <div class="col-6  " id="event1" style="display: block">
-                                                <button type="submit" id="submit" 
+                                                <button type="button" id="submit" 
                                                     class="btn px-5 btn-primary">Save</button>
                                             </div>
                                             <div class="col-6  " id="event2" style="display: none">
@@ -307,6 +308,10 @@
         <script src="first.js"></script>
     <script>
         savePlayer();
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
     
     </script>
 </body>

@@ -26,18 +26,13 @@ jQuery(function ($) {
     this.value = "";
   });
   $('input').on('keyup', function (e) {
-
     if (/(188|13)/.test(e.which)) $(this).trigger('focusout');
   });
-
   $('#tags').on('click', '.tag', function () {
     $(this).remove();
     skills--;
-
   });
-
 });
-
 // font change----------------
 function myChange(e) {
 
@@ -70,7 +65,6 @@ function confPassIcon() {
     togglePassword2.classList.toggle("bi-eye");
   }
 }
-
 // All check box Click----------------------
 function allCheckBoxClick() {
   let allCheckBox = document.getElementById('allCheckBox').checked;
@@ -84,40 +78,45 @@ function allCheckBoxClick() {
     document.getElementById('reading1').checked = false;
   }
 }
-
 // save record-------------
 let numberOfitem;
 function savePlayer() {
-
   document.getElementById("tbody").innerHTML = "";
   document.getElementById("pages").innerHTML = "";
-
   let getPlayerScore = localStorage.getItem("old-users");
   let text = document.getElementById("topScores");
   let n = JSON.parse(getPlayerScore).length;
   var tbody = document.getElementById('tbody');
   var pages = document.getElementById('pages');
-
   let pagesNumberOfData = document.getElementById('pagesNumberOfData');
-  let aab = Math.ceil(n / pagesNumberOfData.value)
+  let aab = Math.ceil(n / pagesNumberOfData.value);
+  console.log("#page-item"+aab);
   var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
+  pageNumber += '<li class="page-item"><span class="page-link dot"  href="#" >...</span></li>';
   for (var i = 0; i < aab; i++) {
     if (i == 0) {
-
-      pageNumber += '<li class="page-item active"><a class="page-link " id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
+      pageNumber += '<li class="page-item active" id="page-item' + (i + 1) + '" style="display:none"><a class="page-link " id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
     } else {
-
-      pageNumber += '<li class="page-item"><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
+      pageNumber += '<li class="page-item" id="page-item' + (i + 1) + '" style="display:none" ><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
     }
   }
+  pageNumber += '<li class="page-item"><span class="page-link dot"  href="#" >...</span></li>';
   pageNumber += '<li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>';
   pages.innerHTML += pageNumber;
   var curr = 'pageNo1';
+  if(curr == 'pageNo1'){
+    var str = $("#" + curr).text();
+    $("#page-item"+str).show();
+    $("#page-item"+ (Number(str)+1)).show();
+    $("#page-item"+ (Number(str)+2)).show();
+  }
   $(document).ready(function () {
     $("a").click(function () {
       if (this.id == "pre") {
+        
         var str = $("#" + curr).text();
         if (str != 1) {
+       
           $("." + curr).hide();
           $("." + 'pageNo' + (str - 1)).show();
           curr = 'pageNo' + (str - 1);
@@ -126,7 +125,33 @@ function savePlayer() {
             $("#" + curr).parent().addClass("active");
           });
         }
-      } else if (this.id == "next") {
+        if(curr == 'pageNo1'){
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)+1)).show();
+          $("#page-item"+ (Number(str)+2)).show();
+          $("#page-item"+ (Number(str)+3)).hide();
+        }
+       
+        else if(curr == ("pageNo"+aab)){
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)-1)).show();
+          $("#page-item"+ (Number(str)-2)).show();
+          $("#page-item"+ (Number(str)-3)).hide();
+        }
+        else{
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)-1)).show();
+          $("#page-item"+ (Number(str)+1)).show();
+          $("#page-item"+ (Number(str)+2)).hide();
+          $("#page-item"+ (Number(str)-2)).hide();
+        }
+     
+      } 
+      else if (this.id == "next") {
+        
         var str = $("#" + curr).text();
         if (str != Math.ceil((n / pagesNumberOfData.value))) {
           $("." + curr).hide();
@@ -137,6 +162,28 @@ function savePlayer() {
             $("#" + curr).parent().addClass("active");
           });
         }
+        if(curr == 'pageNo1'){
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)+1)).show();
+          $("#page-item"+ (Number(str)+2)).show();
+          $("#page-item"+ (Number(str)+3)).hide();
+        }
+        else if(curr == ("pageNo"+aab)){
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)-1)).show();
+          $("#page-item"+ (Number(str)-2)).show();
+          $("#page-item"+ (Number(str)-3)).hide();
+        }
+        else{
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)-1)).show();
+          $("#page-item"+ (Number(str)+1)).show();
+          $("#page-item"+ (Number(str)+2)).hide();
+          $("#page-item"+ (Number(str)-2)).hide();
+        }
       }
       else {
         $("." + curr).hide();
@@ -145,8 +192,30 @@ function savePlayer() {
         $('li').click(function () {
           $('li.page-item.active').removeClass("active");
           $(this).addClass("active");
-
         });
+        if(curr == 'pageNo1'){
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)+1)).show();
+          $("#page-item"+ (Number(str)+2)).show();
+          $("#page-item"+ (Number(str)+3)).hide();
+        }
+        else if(curr == ("pageNo"+aab)){
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)-1)).show();
+          $("#page-item"+ (Number(str)-2)).show();
+          $("#page-item"+ (Number(str)-3)).hide();
+        }
+        else{
+          var str = $("#" + curr).text();
+          $("#page-item"+str).show();
+          $("#page-item"+ (Number(str)-1)).show();
+          $("#page-item"+ (Number(str)+1)).show();
+          $("#page-item"+ (Number(str)+2)).hide();
+          $("#page-item"+ (Number(str)-2)).hide();
+        }
+        
       }
     });
   });
@@ -178,14 +247,11 @@ function savePlayer() {
         tr += "<td> <input type='password' class='password w-auto'  id='password" + (i + 1) + "' name='password' disabled> <b class='bi bi-eye-slash' onclick='passwordIcon1(this," + (i + 1) + ")' class='togglePassword'" + (i + 1) + "></b></td>";
         tr += "<td>" + data[i].Hobby + "</td>";
         tr += "<td>" + data[i].Skills + "</td>";
-        tr += "<td> <i class='fa fa-trash-o' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1' onclick='myFunctionUpdate(" + (i) + ") ,myFunctionUpdateRecord()'  data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
-
+        tr += "<td> <i class='fa fa-trash-o'  data-bs-placement='left' title='Delete' onclick='myFunctionDelete(" + (i) + ")' style='font-size:20px;color:red'></i><i class='fa fa-edit update1'   onclick='myFunctionUpdate(" + (i) + ") ,myFunctionUpdateRecord()' data-bs-placement='right' title='Update' data-bs-target='#myModal' data-bs-toggle='modal' style='font-size:20px;margin:5px;color:blue'></i> </td></tr>";
         tbody.innerHTML += tr;
         i++;
-
       }
     }
-
   }
   for (var k = 0; k < n; k++) {
     document.getElementById('password' + (k + 1)).value = data[k].Password;
@@ -216,8 +282,6 @@ function myFunctionDelete(e) {
   }
 }
 function myFunctionUpdate(e) {
-
-
   let getPlayerScore = JSON.parse(localStorage.getItem("old-users"));
   let skillSet = getPlayerScore[e].Skills;
   skills = skillSet.length;
@@ -243,7 +307,6 @@ function myFunctionUpdate(e) {
   State.value = getPlayerScore[e].State;
   changeState();
   City.value = getPlayerScore[e].City;
-
   Pincode.value = getPlayerScore[e].PinCode;
   Username.value = getPlayerScore[e].Username;
   Emailid.value = getPlayerScore[e].EmaiId;
@@ -266,7 +329,6 @@ function myFunctionUpdate(e) {
     numberOfitem = e;
   }
 }
-
 function myFunction(e) {
   let i;
   console.log(Fname);
@@ -290,13 +352,11 @@ function myFunction(e) {
   } else {
     document.getElementById('validBdate').style.display = 'none';
   }
-
   if (Male.checked == false && Female.checked == false) {
     document.getElementById('validGender').style.display = 'block';
   } else {
     document.getElementById('validGender').style.display = 'none';
   }
-
   if (!AddressOne.value) {
     document.getElementById('validAddressOne').style.display = 'block';
   } else {
@@ -313,19 +373,16 @@ function myFunction(e) {
   } else {
     document.getElementById('validState').style.display = 'none';
   }
-
   if (!City.value || City.value == 'City') {
     document.getElementById('validCity').style.display = 'block';
   } else {
     document.getElementById('validCity').style.display = 'none';
   }
-
   if (!Pincode.value || Pincode.value.length != 6) {
     document.getElementById('validPincode').style.display = 'block';
   } else {
     document.getElementById('validPincode').style.display = 'none';
   }
-
   if (!Username.value) {
     document.getElementById('validUsername').style.display = 'block';
   } else {
@@ -339,8 +396,6 @@ function myFunction(e) {
   } else {
     document.getElementById('validEmailId').style.display = 'block';
   }
-
-
   if (!Password.value) {
     document.getElementById('validPassword').style.display = 'none';
     document.getElementById('validPasswordNone').style.display = 'block';
@@ -352,7 +407,6 @@ function myFunction(e) {
     document.getElementById('validPasswordNone').style.display = 'none';
     document.getElementById('validPassword').style.display = 'none';
   }
-
   if (!conPassword.value) {
     document.getElementById('matchPassword').style.display = 'none';
     document.getElementById('validConPassword').style.display = 'block';
@@ -372,18 +426,14 @@ function myFunction(e) {
   } else {
     document.getElementById('validHobby').style.display = 'block';
   }
-
   if (skills < 1) {
     document.getElementById('validSkill').style.display = 'block';
   } else {
     document.getElementById('validSkill').style.display = 'none';
-
   }
   if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Emailid.value.match(mailformat) || !Username.value || (!Pincode.value || Pincode.value.length != 6) || (!City.value || City.value == 'City') || (!State.value || State.value == 'State') || !Country.value || !AddressOne.value || skills < 1 || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value || (a == false && b == false && c == false)) {
     return false;
   }
-
-
 }
 function newval() {
   let getPlayerScore = localStorage.getItem("old-users");
@@ -395,14 +445,13 @@ function newval() {
   a1.pop();
   localStorage.setItem("old-users", JSON.stringify(a1));
   savePlayer();
-  // document.getElementById("event").setAttribute("data-bs-dismiss", "modal");
-
 }
 let a1;
 function myFunctionInsertRecord() {
+  skills= 0;
   document.getElementById('event1').style.display = 'block';
   document.getElementById('event2').style.display = 'none';
-  $("form span").css("display", "none");
+  $("span , b").css("display", "none");
   $("#submit").click(function () {
     a1 = myFunction();
     if (a1 == false) {
@@ -410,7 +459,10 @@ function myFunctionInsertRecord() {
     }
     else {
       localStorage1();
-      $('#myModal').modal('hide')
+      var a = document.getElementById("myForm");
+      a.reset();
+      $('#myModal').modal('hide');
+      savePlayer();
     }
   });
 }
@@ -425,15 +477,14 @@ function myFunctionUpdateRecord() {
     }
     else {
       localStorage1();
+      var a = document.getElementById("myForm");
+      a.reset();
       $('#myModal').modal('hide')
       newval();
       savePlayer();
     }
   });
 }
-
-
-
 $(document).ready(function () {
   $("#search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
@@ -448,7 +499,6 @@ $(document).ready(function () {
     })
   });
 });
-
 function sortListDir(e) {
   var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
   list = document.getElementById("tbody");
@@ -487,7 +537,6 @@ function sortListDir(e) {
     }
   }
 }
-
 var a2 = {
   "India": {
     "Bihar": ["Patna", "Gaya", "Muzaffarpur"],
@@ -529,7 +578,6 @@ function changeState() {
   }
   document.getElementById('city').innerHTML = string;
 }
-
 function localStorage1() {
   abc = []
   var a = document.getElementById('playGame').checked;
@@ -571,9 +619,6 @@ function localStorage1() {
     "Skills": Skills1
   })
   localStorage.setItem("old-users", JSON.stringify(record));
-  var a = document.getElementById("myForm");
-  a.reset();
-  // document.getElementById("event").setAttribute("data-bs-dismiss", "modal");
   return true;
 }
 function myFunctionClose() {
