@@ -12,8 +12,6 @@
   border: 1px solid rgb(209, 146, 29);
   height: auto;
 }
-
-
 .form-control {
   display: block;
   width: 100%;
@@ -188,7 +186,7 @@ textarea {
 .dot{
   position: relative;
   display: block;
-  color: #0d6efd;
+  color: #070707;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -200,7 +198,7 @@ textarea {
 .dot {
   /* color: black; */
   float: left;
-  padding: 11.5px 9px;
+  padding: 9px 9px;
   text-decoration: none;
 }
 .dot:not(:first-child) .dot {
@@ -354,5 +352,11 @@ table {
   float: left;
   padding: 9px 9px;
   text-decoration: none;
+}
+
+ul#pages {
+  display: flex;
+  justify-content: center;
+  width: 90%;
 }
 
