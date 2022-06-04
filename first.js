@@ -90,9 +90,9 @@ function savePlayer() {
   var pages = document.getElementById('pages');
   let pagesNumberOfData = document.getElementById('pagesNumberOfData');
   let aab = Math.ceil(n / pagesNumberOfData.value);
-  console.log("#page-item"+aab);
+  console.log("#page-item" + aab);
   var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
-  pageNumber += '<li class="page-item"><span class="page-link dot"  href="#" >...</span></li>';
+  pageNumber += '<li class="page-item dot"  id="dot1" style="display:none">...</li>';
   for (var i = 0; i < aab; i++) {
     if (i == 0) {
       pageNumber += '<li class="page-item active" id="page-item' + (i + 1) + '" style="display:none"><a class="page-link " id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
@@ -100,89 +100,43 @@ function savePlayer() {
       pageNumber += '<li class="page-item" id="page-item' + (i + 1) + '" style="display:none" ><a class="page-link" id="pageNo' + (i + 1) + '" >' + (i + 1) + '</a></li>';
     }
   }
-  pageNumber += '<li class="page-item"><span class="page-link dot"  href="#" >...</span></li>';
-  pageNumber += '<li class="page-item"><a class="page-link" id="next" href="#">Next</a></li>';
+  pageNumber += '<li class="page-item  dot"  id="dot2">...</li>';
+  pageNumber += '<li class="page-item"><a class="page-link"  id="next" href="#">Next</a></li>';
   pages.innerHTML += pageNumber;
   var curr = 'pageNo1';
-  if(curr == 'pageNo1'){
+  if (curr == 'pageNo1') {
     var str = $("#" + curr).text();
-    $("#page-item"+str).show();
-    $("#page-item"+ (Number(str)+1)).show();
-    $("#page-item"+ (Number(str)+2)).show();
+    $("#page-item" + str).show();
+    $("#page-item" + (Number(str) + 1)).show();
+    $("#page-item" + (Number(str) + 2)).show();
   }
   $(document).ready(function () {
     $("a").click(function () {
       if (this.id == "pre") {
-        
         var str = $("#" + curr).text();
         if (str != 1) {
-       
           $("." + curr).hide();
           $("." + 'pageNo' + (str - 1)).show();
           curr = 'pageNo' + (str - 1);
           $('li').click(function () {
+            pageControl();
             $('li.page-item.active').removeClass("active");
             $("#" + curr).parent().addClass("active");
           });
         }
-        if(curr == 'pageNo1'){
-          var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)+1)).show();
-          $("#page-item"+ (Number(str)+2)).show();
-          $("#page-item"+ (Number(str)+3)).hide();
-        }
-       
-        else if(curr == ("pageNo"+aab)){
-          var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)-1)).show();
-          $("#page-item"+ (Number(str)-2)).show();
-          $("#page-item"+ (Number(str)-3)).hide();
-        }
-        else{
-          var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)-1)).show();
-          $("#page-item"+ (Number(str)+1)).show();
-          $("#page-item"+ (Number(str)+2)).hide();
-          $("#page-item"+ (Number(str)-2)).hide();
-        }
-     
-      } 
+      }
       else if (this.id == "next") {
-        
+
         var str = $("#" + curr).text();
         if (str != Math.ceil((n / pagesNumberOfData.value))) {
           $("." + curr).hide();
           $("." + 'pageNo' + (1 + Number(str))).show();
           curr = 'pageNo' + (1 + Number(str));
           $('li').click(function () {
+            pageControl();
             $('li.page-item.active').removeClass("active");
             $("#" + curr).parent().addClass("active");
           });
-        }
-        if(curr == 'pageNo1'){
-          var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)+1)).show();
-          $("#page-item"+ (Number(str)+2)).show();
-          $("#page-item"+ (Number(str)+3)).hide();
-        }
-        else if(curr == ("pageNo"+aab)){
-          var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)-1)).show();
-          $("#page-item"+ (Number(str)-2)).show();
-          $("#page-item"+ (Number(str)-3)).hide();
-        }
-        else{
-          var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)-1)).show();
-          $("#page-item"+ (Number(str)+1)).show();
-          $("#page-item"+ (Number(str)+2)).hide();
-          $("#page-item"+ (Number(str)-2)).hide();
         }
       }
       else {
@@ -190,37 +144,44 @@ function savePlayer() {
         $("." + this.id).show();
         curr = this.id;
         $('li').click(function () {
+          pageControl();
           $('li.page-item.active').removeClass("active");
           $(this).addClass("active");
         });
-        if(curr == 'pageNo1'){
+      }
+     function pageControl() {
+        if (curr == 'pageNo1') {
           var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)+1)).show();
-          $("#page-item"+ (Number(str)+2)).show();
-          $("#page-item"+ (Number(str)+3)).hide();
+          $("#page-item" + str).show();
+          $("#page-item" + (Number(str) + 1)).show();
+          $("#page-item" + (Number(str) + 2)).show();
+          $("#page-item" + (Number(str) + 3)).hide();
+          $("#dot1").hide();
+          $("#dot2").show();
+
         }
-        else if(curr == ("pageNo"+aab)){
+        else if (curr == ("pageNo" + aab)) {
           var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)-1)).show();
-          $("#page-item"+ (Number(str)-2)).show();
-          $("#page-item"+ (Number(str)-3)).hide();
+          $("#page-item" + str).show();
+          $("#page-item" + (Number(str) - 1)).show();
+          $("#page-item" + (Number(str) - 2)).show();
+          $("#page-item" + (Number(str) - 3)).hide();
+          $("#dot2").hide();
+          $("#dot1").show();
         }
-        else{
+        else {
           var str = $("#" + curr).text();
-          $("#page-item"+str).show();
-          $("#page-item"+ (Number(str)-1)).show();
-          $("#page-item"+ (Number(str)+1)).show();
-          $("#page-item"+ (Number(str)+2)).hide();
-          $("#page-item"+ (Number(str)-2)).hide();
+          $("#dot1").show();
+          $("#dot2").show();
+          $("#page-item" + str).show();
+          $("#page-item" + (Number(str) - 1)).show();
+          $("#page-item" + (Number(str) + 1)).show();
+          $("#page-item" + (Number(str) + 2)).hide();
+          $("#page-item" + (Number(str) - 2)).hide();
         }
-        
       }
     });
   });
-
-
   var i = 0;
   for (var j = 0; j < n / pagesNumberOfData.value; j++) {
     for (var k = 0; k < pagesNumberOfData.value; k++) {
@@ -312,9 +273,6 @@ function myFunctionUpdate(e) {
   Emailid.value = getPlayerScore[e].EmaiId;
   Password.value = getPlayerScore[e].Password;
   conPassword.value = getPlayerScore[e].Password;
-  var a = document.getElementById('playGame');
-  var b = document.getElementById('exercise');
-  var c = document.getElementById('reading1');
   for (i in getPlayerScore[e].Hobby) {
     if (getPlayerScore[e].Hobby[i] == "Play Game") {
       document.getElementById('playGame').checked = true;
@@ -333,103 +291,104 @@ function myFunction(e) {
   let i;
   console.log(Fname);
   if (!Fname.value) {
-    document.getElementById('validFname').style.display = 'block';
+    $("#validFname").show();
   } else {
-    document.getElementById('validFname').style.display = 'none';
+    $("#validFname").hide();
   }
   if (!Mname.value) {
-    document.getElementById('validMname').style.display = 'block';
+    $("#validMname").show();
+    // document.getElementById('validMname').style.display = 'block';
   } else {
-    document.getElementById('validMname').style.display = 'none';
+    $("#validMname").hide();
   }
   if (!Lname.value) {
-    document.getElementById('validLname').style.display = 'block';
+    $("#validLname").show();
   } else {
-    document.getElementById('validLname').style.display = 'none';
+    $("#validLname").hide();
   }
   if (!Bdate.value) {
-    document.getElementById('validBdate').style.display = 'block';
+    $("#validBdate").show();
   } else {
-    document.getElementById('validBdate').style.display = 'none';
+    $("#validBdate").hide();
   }
   if (Male.checked == false && Female.checked == false) {
-    document.getElementById('validGender').style.display = 'block';
+    $("#validGender").show();
   } else {
-    document.getElementById('validGender').style.display = 'none';
+    $("#validGender").hide();
   }
   if (!AddressOne.value) {
-    document.getElementById('validAddressOne').style.display = 'block';
+    $("#validAddressOne").show();
   } else {
-    document.getElementById('validAddressOne').style.display = 'none';
+    $("#validAddressOne").hide();
   }
   if (!Country.value) {
-    document.getElementById('validCountry').style.display = 'block';
+    $("#validCountry").show();
   } else {
-    document.getElementById('validCountry').style.display = 'none';
+    $("#validCountry").hide();
   }
 
   if (!State.value || State.value == 'State') {
-    document.getElementById('validState').style.display = 'block';
+    $("#validState").show();
   } else {
-    document.getElementById('validState').style.display = 'none';
+    $("#validState").hide();
   }
   if (!City.value || City.value == 'City') {
-    document.getElementById('validCity').style.display = 'block';
+    $("#validCity").show();
   } else {
-    document.getElementById('validCity').style.display = 'none';
+    $("#validCity").hide();
   }
   if (!Pincode.value || Pincode.value.length != 6) {
-    document.getElementById('validPincode').style.display = 'block';
+    $("#validPincode").show();
   } else {
-    document.getElementById('validPincode').style.display = 'none';
+    $("#validPincode").hide();
   }
   if (!Username.value) {
-    document.getElementById('validUsername').style.display = 'block';
+    $("#validUsername").show();
   } else {
-    document.getElementById('validUsername').style.display = 'none';
+    $("#validUsername").hide();
   }
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (!Emailid.value) {
-    document.getElementById('validEmailId').style.display = 'block';
+    $("#validEmailId").show();
   } else if (Emailid.value.match(mailformat)) {
-    document.getElementById('validEmailId').style.display = 'none';
+    $("#validEmailId").hide();
   } else {
-    document.getElementById('validEmailId').style.display = 'block';
+    $("#validEmailId").show();
   }
   if (!Password.value) {
-    document.getElementById('validPassword').style.display = 'none';
-    document.getElementById('validPasswordNone').style.display = 'block';
+    $("#validPassword").hide();
+    $("#validPasswordNone").show();
   } else if (Password.value.length < 8) {
-    document.getElementById('validPasswordNone').style.display = 'none';
-    document.getElementById('validPassword').style.display = 'block';
+    $("#validPasswordNone").hide();
+    $("#validPassword").show();
   }
   else {
-    document.getElementById('validPasswordNone').style.display = 'none';
-    document.getElementById('validPassword').style.display = 'none';
+    $("#validPasswordNone").hide();
+    $("#validPassword").hide();
   }
   if (!conPassword.value) {
-    document.getElementById('matchPassword').style.display = 'none';
-    document.getElementById('validConPassword').style.display = 'block';
+    $("#matchPassword").hide();
+    $("#validConPassword").show();
   } else if (Password.value != conPassword.value) {
-    document.getElementById('validConPassword').style.display = 'none';
-    document.getElementById('matchPassword').style.display = 'block';
+    $("#validConPassword").hide();
+    $("#matchPassword").show();
   }
   else {
-    document.getElementById('validConPassword').style.display = 'none';
-    document.getElementById('matchPassword').style.display = 'none';
+    $("#validConPassword").hide();
+    $("#matchPassword").hide();
   }
   var a = document.getElementById('playGame').checked;
   var b = document.getElementById('exercise').checked;
   var c = document.getElementById('reading1').checked;
   if (a == true || b == true || c == true) {
-    document.getElementById('validHobby').style.display = 'none';
+    $("#validHobby").hide();
   } else {
-    document.getElementById('validHobby').style.display = 'block';
+     $("#validHobby").show();
   }
   if (skills < 1) {
-    document.getElementById('validSkill').style.display = 'block';
+     $("#validSkill").show();
   } else {
-    document.getElementById('validSkill').style.display = 'none';
+    $("#validSkill").hide();
   }
   if (!Fname.value || Password.value != conPassword.value || !conPassword.value || Password.value.length < 8 || !Password.value || !Emailid.value || !Emailid.value.match(mailformat) || !Username.value || (!Pincode.value || Pincode.value.length != 6) || (!City.value || City.value == 'City') || (!State.value || State.value == 'State') || !Country.value || !AddressOne.value || skills < 1 || (Male == false && Female == false) || !Bdate.value || !Lname.value || !Mname.value || (a == false && b == false && c == false)) {
     return false;
@@ -448,7 +407,9 @@ function newval() {
 }
 let a1;
 function myFunctionInsertRecord() {
-  skills= 0;
+  skills = 0;
+  var a = document.getElementById("myForm");
+  a.reset();
   document.getElementById('event1').style.display = 'block';
   document.getElementById('event2').style.display = 'none';
   $("span , b").css("display", "none");
@@ -482,8 +443,10 @@ function myFunctionUpdateRecord() {
       $('#myModal').modal('hide')
       newval();
       savePlayer();
+      $('b').hide();
     }
   });
+
 }
 $(document).ready(function () {
   $("#search").on("keyup", function () {
@@ -512,7 +475,6 @@ function sortListDir(e) {
       shouldSwitch = false;
       if (dir == "asc") {
         if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-
           shouldSwitch = true;
           break;
         }
@@ -626,3 +588,4 @@ function myFunctionClose() {
   $("#myForm span").css("display", "none");
   a.reset();
 }
+
