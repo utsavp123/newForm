@@ -19,7 +19,7 @@ jQuery(function ($) {
   $('#tags input').on('focusout', function () {
     var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
     if (txt) {
-      $('#in').before('<b class="tag">' + txt + '</b>');
+      $('#in').before('<b class="tag" style="background-color: rgb('+(skills*skills)+' '+(skills*5)+' '+(skills*2)+')">' + txt + '</b>');
       skills++;
       console.log();
     }
@@ -90,7 +90,6 @@ function savePlayer() {
   var pages = document.getElementById('pages');
   let pagesNumberOfData = document.getElementById('pagesNumberOfData');
   let aab = Math.ceil(n / pagesNumberOfData.value);
-  console.log("#page-item" + aab);
   var pageNumber = '<li class="page-item"><a class="page-link" id="pre" href="#">Previous</a></li>';
   pageNumber += '<li class="page-item dot"  id="dot1" style="display:none">...</li>';
   for (var i = 0; i < aab; i++) {
@@ -109,6 +108,9 @@ function savePlayer() {
     $("#page-item" + str).show();
     $("#page-item" + (Number(str) + 1)).show();
     $("#page-item" + (Number(str) + 2)).show();
+  }
+  if(aab<=3){
+    $("#dot2").hide();
   }
   $(document).ready(function () {
     $("a").click(function () {
@@ -179,7 +181,17 @@ function savePlayer() {
           $("#page-item" + (Number(str) + 2)).hide();
           $("#page-item" + (Number(str) - 2)).hide();
         }
+        var str = $("#" + curr).text();
+        if(aab<=3 || aab == (Number(str)+1)){
+          $("#dot2").hide();
+        }
+        var str = $("#pageNo1").text();
+        var str1 = $("#" + curr).text();
+        if(aab<=3 || str == (Number(str1)-1)){
+          $("#dot1").hide();
+        }
       }
+    
     });
   });
   var i = 0;
@@ -218,7 +230,6 @@ function savePlayer() {
     document.getElementById('password' + (k + 1)).value = data[k].Password;
   }
 }
-
 // Table passwordIcon-----------------
 function passwordIcon1(e, n) {
   const x = document.getElementById('password' + n);
@@ -249,7 +260,7 @@ function myFunctionUpdate(e) {
   tr = '';
   $('.tag').remove();
   for (i in skillSet) {
-    tr += '<b class="tag">' + skillSet[i] + '</b>'
+    tr += '<b class="tag" style = " background-color:rgb('+(i*i)+' '+(i*5)+' '+(i*2)+')">' + skillSet[i] + '</b>'
   }
   $("#in").before(tr);
   Fname.value = getPlayerScore[e].Fname;
@@ -297,7 +308,6 @@ function myFunction(e) {
   }
   if (!Mname.value) {
     $("#validMname").show();
-    // document.getElementById('validMname').style.display = 'block';
   } else {
     $("#validMname").hide();
   }
@@ -446,7 +456,6 @@ function myFunctionUpdateRecord() {
       $('b').hide();
     }
   });
-
 }
 $(document).ready(function () {
   $("#search").on("keyup", function () {
@@ -588,4 +597,3 @@ function myFunctionClose() {
   $("#myForm span").css("display", "none");
   a.reset();
 }
-
